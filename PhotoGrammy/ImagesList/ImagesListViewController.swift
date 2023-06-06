@@ -18,6 +18,7 @@ class ImagesListViewController: UIViewController {
         imageListTableView.delegate = self
         imageListTableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
     }
+    
 }
 
 extension ImagesListViewController: UITableViewDataSource {

@@ -1,8 +1,6 @@
 import UIKit
 
-class ImagesListViewController: UIViewController {
-    
-    @IBOutlet private var imageListTableView: UITableView!
+final class ImagesListViewController: UIViewController {
     
     private let photosName: [String] = Array(0..<20).map{"\($0)"}
     private lazy var dateFormatter: DateFormatter = {
@@ -12,6 +10,8 @@ class ImagesListViewController: UIViewController {
         return formatter
     }()
     
+    @IBOutlet private var imageListTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         imageListTableView.dataSource = self
@@ -20,6 +20,7 @@ class ImagesListViewController: UIViewController {
     }
 }
 
+// MARK: - UITableViewDataSource
 extension ImagesListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -38,6 +39,7 @@ extension ImagesListViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
 extension ImagesListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {}
@@ -57,9 +59,10 @@ extension ImagesListViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - UITableViewCellConfig
 extension ImagesListViewController {
     
-    func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
+    private func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
         let imageName = String(indexPath.row)
         guard let image = UIImage(named: imageName) else {
             return

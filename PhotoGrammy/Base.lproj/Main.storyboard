@@ -107,7 +107,7 @@
                     <navigationItem key="navigationItem" id="zNc-TM-75d"/>
                     <connections>
                         <outlet property="imageListTableView" destination="ZjC-nG-iCD" id="776-G7-VO3"/>
-                        <segue destination="y9z-Fi-f18" kind="show" identifier="ShowSingleImage" id="MoQ-e9-28n"/>
+                        <segue destination="y9z-Fi-f18" kind="presentation" identifier="ShowSingleImage" id="MoQ-e9-28n"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -178,27 +178,41 @@
         <!--Single Image View Controller-->
         <scene sceneID="qUf-IX-iuY">
             <objects>
-                <viewController id="y9z-Fi-f18" userLabel="Single Image View Controller" customClass="SingleImageViewController" customModule="PhotoGrammy" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="y9z-Fi-f18" userLabel="Single Image View Controller" customClass="SingleImageViewController" customModule="PhotoGrammy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VU4-am-b2n">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="qNI-rM-AlY">
-                                <rect key="frame" x="0.0" y="91" width="390" height="670"/>
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                                 <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tnb-fy-hRc">
+                                <rect key="frame" x="4" y="44" width="99" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="Backward">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="didTapBackButton" destination="y9z-Fi-f18" eventType="touchUpInside" id="bu7-k2-lK8"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="iH5-91-q4D"/>
                         <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="iH5-91-q4D" firstAttribute="bottom" secondItem="qNI-rM-AlY" secondAttribute="bottom" id="V97-Gp-0jq"/>
-                            <constraint firstItem="iH5-91-q4D" firstAttribute="trailing" secondItem="qNI-rM-AlY" secondAttribute="trailing" id="XOe-U1-1p2"/>
-                            <constraint firstItem="qNI-rM-AlY" firstAttribute="leading" secondItem="iH5-91-q4D" secondAttribute="leading" id="vyW-tE-VVi"/>
-                            <constraint firstItem="qNI-rM-AlY" firstAttribute="top" secondItem="iH5-91-q4D" secondAttribute="top" id="yiP-gF-NuN"/>
+                            <constraint firstAttribute="bottom" secondItem="qNI-rM-AlY" secondAttribute="bottom" id="V97-Gp-0jq"/>
+                            <constraint firstAttribute="trailing" secondItem="qNI-rM-AlY" secondAttribute="trailing" id="XOe-U1-1p2"/>
+                            <constraint firstItem="qNI-rM-AlY" firstAttribute="leading" secondItem="VU4-am-b2n" secondAttribute="leading" id="vyW-tE-VVi"/>
+                            <constraint firstItem="qNI-rM-AlY" firstAttribute="top" secondItem="VU4-am-b2n" secondAttribute="top" id="yiP-gF-NuN"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="wyC-5K-0Y9"/>
                     <connections>
+                        <outlet property="backButton" destination="tnb-fy-hRc" id="sPK-eL-hAt"/>
                         <outlet property="imageView" destination="qNI-rM-AlY" id="VHQ-X8-s3K"/>
                     </connections>
                 </viewController>
@@ -234,6 +248,7 @@
     <resources>
         <image name="0" width="200" height="132"/>
         <image name="Active" width="44" height="44"/>
+        <image name="Backward" width="24" height="24"/>
         <image name="ProfileExitButton" width="44" height="44"/>
         <image name="TabEditorialActive" width="30" height="30"/>
         <image name="TabProfileActive" width="30" height="30"/>

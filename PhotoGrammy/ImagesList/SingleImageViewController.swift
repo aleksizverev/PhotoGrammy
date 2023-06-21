@@ -3,6 +3,7 @@ import UIKit
 final class SingleImageViewController: UIViewController {
     private var image: UIImage!
     
+    @IBOutlet var backButton: UIButton!
     @IBOutlet var imageView: UIImageView!
     
     override func viewDidLoad() {
@@ -13,5 +14,10 @@ final class SingleImageViewController: UIViewController {
     func setCurrentImage(to image: UIImage!){
         self.image = image
     }
+    
+    @IBAction func didTapBackButton() {
+        dismiss(animated: true, completion: nil)
+    }
+    
 }
 

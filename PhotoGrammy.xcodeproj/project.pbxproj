@@ -46,7 +46,6 @@
 		173B78E72A2CE3F3005C83C9 /* ImagesList */ = {
 			isa = PBXGroup;
 			children = (
-				1753B1E62A3DEB2500C389F4 /* SingleImageViewController.swift */,
 				173B78E42A2CE35C005C83C9 /* ImagesListCell.swift */,
 				17BDC8FB2A278C6700B1FAC8 /* ImagesListViewController.swift */,
 			);
@@ -59,6 +58,14 @@
 				1753B1E42A35D95C00C389F4 /* ProfileViewController.swift */,
 			);
 			path = UserProfile;
+			sourceTree = "<group>";
+		};
+		1764DEF82A5096BA0022DC23 /* SigleImageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1753B1E62A3DEB2500C389F4 /* SingleImageViewController.swift */,
+			);
+			path = SigleImageViewController;
 			sourceTree = "<group>";
 		};
 		17BDC8EB2A278C6600B1FAC8 = {
@@ -80,6 +87,7 @@
 		17BDC8F62A278C6700B1FAC8 /* PhotoGrammy */ = {
 			isa = PBXGroup;
 			children = (
+				1764DEF82A5096BA0022DC23 /* SigleImageViewController */,
 				1753B1E32A35D6E700C389F4 /* UserProfile */,
 				173B78E72A2CE3F3005C83C9 /* ImagesList */,
 				17BDC8F72A278C6700B1FAC8 /* AppDelegate.swift */,

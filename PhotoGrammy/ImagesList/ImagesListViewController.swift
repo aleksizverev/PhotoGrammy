@@ -13,9 +13,14 @@ final class ImagesListViewController: UIViewController {
     
     @IBOutlet private var imageListTableView: UITableView!
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setNeedsStatusBarAppearanceUpdate()
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
-            .lightContent
-        }
+        .lightContent
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

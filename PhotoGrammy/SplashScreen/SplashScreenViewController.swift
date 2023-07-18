@@ -32,7 +32,6 @@ final class SplashScreenViewController: UIViewController {
         
         // Установим в `rootViewController` полученный контроллер
         window.rootViewController = tabBarController
-        
     }
 }
 
@@ -67,7 +66,6 @@ extension SplashScreenViewController: AuthViewControllerDelegate {
                     print("error")
                 }
             }
-            
         }
     }
 }

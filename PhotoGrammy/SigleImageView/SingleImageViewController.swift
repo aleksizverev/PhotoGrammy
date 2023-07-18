@@ -9,9 +9,9 @@ final class SingleImageViewController: UIViewController {
         }
     }
     
-    @IBOutlet private var scrollView: UIScrollView!
-    @IBOutlet private var backButton: UIButton!
-    @IBOutlet private var imageView: UIImageView!
+    @IBOutlet private weak var scrollView: UIScrollView!
+    @IBOutlet private weak var backButton: UIButton!
+    @IBOutlet private weak var imageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()

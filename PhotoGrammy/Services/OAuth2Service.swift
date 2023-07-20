@@ -2,7 +2,6 @@ import Foundation
 
 final class OAuth2Service {
     private let urlSession = URLSession.shared
-    
     private var lastCode: String?
     private var task: URLSessionTask?
     

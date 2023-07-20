@@ -1,6 +1,7 @@
 import UIKit
 
 final class ProfileViewController: UIViewController {
+    
     private var profileImageView: UIImageView = {
         let image = UIImage(named: "UserPic")
         let imageView = UIImageView()
@@ -40,7 +41,7 @@ final class ProfileViewController: UIViewController {
     private let exitButton: UIButton = {
         let exitButton = UIButton.systemButton(
             with: UIImage(systemName: "ipad.and.arrow.forward")!,
-            target: ProfileViewController.self,
+            target: self,
             action: #selector(Self.didTapExitButton))
         exitButton.tintColor = .red
         exitButton.translatesAutoresizingMaskIntoConstraints = false
@@ -49,7 +50,7 @@ final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // get loaded user profile from splashScreenViewController
         addSubviews()
         applyConstrains()
     }
@@ -68,6 +69,12 @@ final class ProfileViewController: UIViewController {
         nameLabel.removeFromSuperview()
         userTagLabel.removeFromSuperview()
         userDescriptionLabel.removeFromSuperview()
+    }
+    
+    private func setUpUserProfile(profile: Profile){
+        nameLabel.text = profile.name
+        userTagLabel.text = profile.loginName
+        userDescriptionLabel.text = profile.bio
     }
     
     private func addSubviews() {

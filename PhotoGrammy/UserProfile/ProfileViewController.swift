@@ -1,6 +1,7 @@
 import UIKit
 
 final class ProfileViewController: UIViewController {
+    private let profileService = ProfileService.shared
     
     private var profileImageView: UIImageView = {
         let image = UIImage(named: "UserPic")
@@ -50,7 +51,10 @@ final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // get loaded user profile from splashScreenViewController
+        
+        if let profile = profileService.profile {
+            setUpUserProfile(profile: profile)
+        }
         addSubviews()
         applyConstrains()
     }

@@ -1,7 +1,10 @@
 import UIKit
 
 final class ProfileService {
+    static let shared = ProfileService()
+    
     private let urlSession = URLSession.shared
+    private(set) var profile: Profile?
     private var task: URLSessionTask?
     
     func fetchProfile(
@@ -16,8 +19,9 @@ final class ProfileService {
             
             let task = object(for: request) { result in
                 switch result {
-                case .success(let body):
-                    completion(.success(body))
+                case .success(let profile):
+                    completion(.success(profile))
+                    self.profile = profile
                     self.task = nil
                 case .failure(let error):
                     completion(.failure(error))

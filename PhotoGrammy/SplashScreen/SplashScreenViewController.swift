@@ -4,25 +4,13 @@ import ProgressHUD
 final class SplashScreenViewController: UIViewController {
     private let ShowAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
     private let oAuthService = OAuth2Service()
-    private let profileService = ProfileService()
+    private let profileService = ProfileService.shared
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if let token = OAuth2TokenStorage().token {
-//            UIBlockingProgressHUD.show()
-//            profileService.fetchProfile(token) { [weak self] result in
-//                guard let self = self else { return }
-//                switch result {
-//                case .success(let profile):
-//                    setUpUserProfile(profile: profile)
-//                    UIBlockingProgressHUD.dismiss()
-//                case .failure(let error):
-//                    print(error)
-//                    UIBlockingProgressHUD.dismiss()
-//                }
-//            }
-            fetchProfile(token: token)
+            fetchProfile(token)
             switchToTabBarController()
         } else {
             performSegue(withIdentifier: ShowAuthenticationScreenSegueIdentifier, sender: nil)
@@ -82,7 +70,7 @@ extension SplashScreenViewController: AuthViewControllerDelegate {
             guard let self = self else { return }
             switch result {
             case .success(let token):
-                self.fetchProfile(token: token)
+                self.fetchProfile(token)
             case .failure:
                 UIBlockingProgressHUD.dismiss()
                 // TODO [Sprint 11] Показать ошибку
@@ -91,11 +79,11 @@ extension SplashScreenViewController: AuthViewControllerDelegate {
         }
     }
     
-    private func fetchProfile(token: String) {
+    private func fetchProfile(_ token: String) {
         profileService.fetchProfile(token) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success:
+            case .success(let profile):
                 UIBlockingProgressHUD.dismiss()
                 self.switchToTabBarController()
             case .failure:

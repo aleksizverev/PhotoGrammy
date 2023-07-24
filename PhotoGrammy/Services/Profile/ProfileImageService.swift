@@ -2,11 +2,12 @@ import UIKit
 
 final class ProfileImageService {
     static let shared = ProfileImageService()
+    static let DidChangeNotification = Notification.Name(rawValue: "ProfileImageProviderDidChange")
     
     private let profileService = ProfileService.shared
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?
-    private (set) var avatarURL: String?
+    private(set) var avatarURL: String?
     
     func fetchProfileImageURL(
         username: String,
@@ -22,6 +23,11 @@ final class ProfileImageService {
                 switch result {
                 case .success(let avatarURL):
                     completion(.success(avatarURL))
+                    NotificationCenter.default.post(
+                        name: ProfileImageService.DidChangeNotification,
+                        object: self,
+                        userInfo: ["URL": avatarURL])
+                    
                     self.avatarURL = avatarURL
                     self.task = nil
                 case .failure(let error):
@@ -35,11 +41,11 @@ final class ProfileImageService {
 
 extension ProfileImageService {
     private func userProfileImageRequest() -> URLRequest {
-            return URLRequest.makeHTTPRequest(
-                path:"/users/\(profileService.getProfileUsername())",
-                httpMethod: "GET",
-                baseURL: DefaultBaseURL)
-        }
+        return URLRequest.makeHTTPRequest(
+            path:"/users/\(profileService.getProfileUsername())",
+            httpMethod: "GET",
+            baseURL: DefaultBaseURL)
+    }
     
     private func object(
         for request: URLRequest,
@@ -49,7 +55,7 @@ extension ProfileImageService {
         let decoder = JSONDecoder()
         
         return urlSession.data(for: request) { (result: Result<Data, Error>) in
-
+            
             switch result {
             case .success(let data):
                 do {

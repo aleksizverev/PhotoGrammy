@@ -2,6 +2,7 @@ import UIKit
 
 final class ProfileViewController: UIViewController {
     private let profileService = ProfileService.shared
+    private var profileImageServiceObserver: NSObjectProtocol?
     
     private var profileImageView: UIImageView = {
         let image = UIImage(named: "UserPic")
@@ -52,6 +53,15 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        profileImageServiceObserver = NotificationCenter.default.addObserver(
+            forName: ProfileImageService.DidChangeNotification,
+            object: nil,
+            queue: .main) { [weak self] _ in
+                guard let self = self else { return }
+                self.updateAvatar()
+            }
+        updateAvatar()
+        
         if let profile = profileService.profile {
             setUpUserProfile(profile: profile)
         }
@@ -79,6 +89,14 @@ final class ProfileViewController: UIViewController {
         nameLabel.text = profile.name
         userTagLabel.text = profile.loginName
         userDescriptionLabel.text = profile.bio
+    }
+    
+    private func updateAvatar(){
+        guard
+            let profileImageURL = ProfileImageService.shared.avatarURL,
+            let avatarURL = URL(string: profileImageURL)
+        else { return }
+        // Update avatar using Kingfisher
     }
     
     private func addSubviews() {

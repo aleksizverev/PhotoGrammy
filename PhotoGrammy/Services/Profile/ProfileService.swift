@@ -3,7 +3,7 @@ import UIKit
 final class ProfileService {
     static let shared = ProfileService()
     
-    private let urlSession = URLSession.shared
+    private let session = URLSession.shared
     private(set) var profile: Profile?
     private var task: URLSessionTask?
     
@@ -17,9 +17,12 @@ final class ProfileService {
             var request = userProfileRequest()
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
             
-            let task = object(for: request) { result in
+            let task = session.objectTask(for: request) {
+                (result: Result<ProfileResult, Error>) in
+                
                 switch result {
-                case .success(let profile):
+                case .success(let profileResult):
+                    let profile = Profile(profileResult: profileResult)
                     completion(.success(profile))
                     self.profile = profile
                     self.task = nil
@@ -41,35 +44,9 @@ final class ProfileService {
 
 extension ProfileService {
     private func userProfileRequest() -> URLRequest {
-            return URLRequest.makeHTTPRequest(
-                path:"/me",
-                httpMethod: "GET",
-                baseURL: DefaultBaseURL)
-        }
-    
-    private func object(
-        for request: URLRequest,
-        completion: @escaping (Result<Profile, Error>) -> Void
-    ) -> URLSessionTask {
-        
-        let decoder = JSONDecoder()
-        
-        return urlSession.data(for: request) { (result: Result<Data, Error>) in
-
-            switch result {
-            case .success(let data):
-                do {
-                    let object = try decoder.decode(
-                        ProfileResult.self,
-                        from: data
-                    )
-                    completion(.success(Profile(profileResult: object)))
-                } catch {
-                    completion(.failure(error))
-                }
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+        return URLRequest.makeHTTPRequest(
+            path:"/me",
+            httpMethod: "GET",
+            baseURL: DefaultBaseURL)
     }
 }

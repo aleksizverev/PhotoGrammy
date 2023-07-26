@@ -6,6 +6,7 @@ final class SplashScreenViewController: UIViewController {
     private let oAuthService = OAuth2Service()
     private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared
+    private let alertPresenter = AlertPresenter.shared
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -74,7 +75,12 @@ extension SplashScreenViewController: AuthViewControllerDelegate {
                 self.fetchProfile(token)
             case .failure:
                 UIBlockingProgressHUD.dismiss()
-                // TODO [Sprint 11] Показать ошибку
+                alertPresenter.showAlert(
+                    on: self,
+                    with: AlertModel(
+                        title: "Something went wrong(",
+                        message: "Unable to login",
+                        buttonText: "Ok"))
                 break
             }
         }
@@ -91,7 +97,12 @@ extension SplashScreenViewController: AuthViewControllerDelegate {
                 self.switchToTabBarController()
             case .failure:
                 UIBlockingProgressHUD.dismiss()
-                // TODO [Sprint 11] Показать ошибку
+                alertPresenter.showAlert(
+                    on: self,
+                    with: AlertModel(
+                        title: "Something went wrong(",
+                        message: "Unable to login",
+                        buttonText: "Ok"))
                 break
             }
         }

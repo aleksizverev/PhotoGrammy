@@ -2,8 +2,8 @@ import UIKit
 
 final class ProfileViewController: UIViewController {
     private let profileService = ProfileService.shared
-    private let profileImageService = ProfileImageService.shared
-    private var profileImageServiceObserver: NSObjectProtocol?
+    private var profileImageService = ProfileImageService.shared
+    private var profileImageObserver: NSObjectProtocol?
     
     private var profileImageView: UIImageView = {
         let image = UIImage(named: "UserPic")
@@ -54,18 +54,17 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        profileImageServiceObserver = NotificationCenter.default.addObserver(
-            forName: ProfileImageService.DidChangeNotification,
+        profileImageObserver = NotificationCenter.default.addObserver(
+            forName: ProfileImageService.DidChangedNotification,
             object: nil,
-            queue: .main) { [weak self] _ in
+            queue: .main) {
+                [weak self] _ in
                 guard let self = self else { return }
                 self.updateAvatar()
             }
         updateAvatar()
         
-        if let profile = profileService.profile {
-            setUpUserProfile(profile: profile)
-        }
+        updateProfileDetails(profile: profileService.profile)
         addSubviews()
         applyConstrains()
     }
@@ -79,26 +78,26 @@ final class ProfileViewController: UIViewController {
         .lightContent
     }
     
-    @objc
-    private func didTapExitButton() {
-        nameLabel.removeFromSuperview()
-        userTagLabel.removeFromSuperview()
-        userDescriptionLabel.removeFromSuperview()
-    }
-    
-    private func setUpUserProfile(profile: Profile){
+    private func updateProfileDetails(profile: Profile?) {
+        guard let profile = profile else { return }
         nameLabel.text = profile.name
         userTagLabel.text = profile.loginName
         userDescriptionLabel.text = profile.bio
     }
     
-    private func updateAvatar(){
+    private func updateAvatar() {
         guard
-            let profileImageURL = profileImageService.avatarURL,
-            let avatarURL = URL(string: profileImageURL)
+            let profileImageURL = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageURL)
         else { return }
-        // Update avatar using Kingfisher
-        print(avatarURL)
+        print(url.absoluteString)
+    }
+    
+    @objc
+    private func didTapExitButton() {
+        nameLabel.removeFromSuperview()
+        userTagLabel.removeFromSuperview()
+        userDescriptionLabel.removeFromSuperview()
     }
     
     private func addSubviews() {

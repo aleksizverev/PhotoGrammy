@@ -3,17 +3,17 @@ import ProgressHUD
 
 final class SplashScreenViewController: UIViewController {
     private let ShowAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
-    private let oAuthService = OAuth2Service()
+    
+    private let oauthService = OAuth2Service.shared
     private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared
-    private let alertPresenter = AlertPresenter.shared
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if let token = OAuth2TokenStorage().token {
-            fetchProfile(token)
             switchToTabBarController()
+            fetchProfile(token: token)
         } else {
             performSegue(withIdentifier: ShowAuthenticationScreenSegueIdentifier, sender: nil)
         }
@@ -60,49 +60,33 @@ extension SplashScreenViewController {
 //MARK: - AuthViewControllerDelegate
 extension SplashScreenViewController: AuthViewControllerDelegate {
     func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String) {
+        UIBlockingProgressHUD.show()
         dismiss(animated: true) { [weak self] in
             guard let self = self else { return }
-            UIBlockingProgressHUD.show()
-            self.fetchOAuthToken(code)
-        }
-    }
-    
-    private func fetchOAuthToken(_ code: String) {
-        oAuthService.fetchOAuthToken(code) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let token):
-                self.fetchProfile(token)
-            case .failure:
-                UIBlockingProgressHUD.dismiss()
-                alertPresenter.showAlert(
-                    on: self,
-                    with: AlertModel(
-                        title: "Something went wrong(",
-                        message: "Unable to login",
-                        buttonText: "Ok"))
-                break
+            
+            self.oauthService.fetchOAuthToken(code) { result in
+                switch result {
+                case .success(let token):
+                    self.fetchProfile(token: token)
+                case .failure:
+                    UIBlockingProgressHUD.dismiss()
+                    break
+                }
             }
         }
     }
     
-    private func fetchProfile(_ token: String) {
-        profileService.fetchProfile(token) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success:
+    func fetchProfile(token: String) {
+        profileService.fetchProfile(token) { result in
+            switch(result) {
+            case .success(let profile):
                 UIBlockingProgressHUD.dismiss()
-                profileImageService.fetchProfileImageURL(username: profileService.getProfileUsername(), token: token){ _ in }
+                self.profileImageService.fetchProfileImageURL(
+                    username: profile.username,
+                    token: token) { _ in }
                 self.switchToTabBarController()
             case .failure:
                 UIBlockingProgressHUD.dismiss()
-                alertPresenter.showAlert(
-                    on: self,
-                    with: AlertModel(
-                        title: "Something went wrong(",
-                        message: "Unable to login",
-                        buttonText: "Ok"))
-                break
             }
         }
     }

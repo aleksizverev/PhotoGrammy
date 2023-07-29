@@ -8,7 +8,7 @@ final class SplashScreenViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if let token = OAuth2TokenStorage().token {
+        if OAuth2TokenStorage().token != nil {
             switchToTabBarController()
         } else {
             performSegue(withIdentifier: ShowAuthenticationScreenSegueIdentifier, sender: nil)
@@ -23,7 +23,7 @@ final class SplashScreenViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
-
+    
     private func switchToTabBarController() {
         // Получаем экземпляр `Window` приложения
         guard let window = UIApplication.shared.windows.first else {fatalError("Invalid Configuration")}
@@ -60,11 +60,11 @@ extension SplashScreenViewController: AuthViewControllerDelegate {
         dismiss(animated: true) { [weak self] in
             guard let self = self else { return }
             
-            self.oAuthService.fetchOAuthToken(code) {result in
+            self.oAuthService.fetchOAuthToken(code) { result in
                 switch result {
                 case(.success):
-                    self.switchToTabBarController()
                     UIBlockingProgressHUD.dismiss()
+                    self.switchToTabBarController()
                 case(.failure):
                     print("error")
                     UIBlockingProgressHUD.dismiss()

@@ -3,7 +3,9 @@ import ProgressHUD
 
 final class SplashScreenViewController: UIViewController {
     private let ShowAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
-    private let oAuthService = OAuth2Service()
+    
+    private let oauthService = OAuth2Service.shared
+    private let profileService = ProfileService.shared
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -60,15 +62,26 @@ extension SplashScreenViewController: AuthViewControllerDelegate {
         dismiss(animated: true) { [weak self] in
             guard let self = self else { return }
             
-            self.oAuthService.fetchOAuthToken(code) { result in
+            self.oauthService.fetchOAuthToken(code) { result in
                 switch result {
-                case(.success):
+                case .success(let token):
+                    self.fetchProfile(token: token)
+                case .failure:
                     UIBlockingProgressHUD.dismiss()
-                    self.switchToTabBarController()
-                case(.failure):
-                    print("error")
-                    UIBlockingProgressHUD.dismiss()
+                    break
                 }
+            }
+        }
+    }
+    
+    func fetchProfile(token: String) {
+        profileService.fetchProfile(token) { result in
+            switch(result) {
+            case .success:
+                UIBlockingProgressHUD.dismiss()
+                self.switchToTabBarController()
+            case .failure:
+                UIBlockingProgressHUD.dismiss()
             }
         }
     }

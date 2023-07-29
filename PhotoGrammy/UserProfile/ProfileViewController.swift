@@ -1,7 +1,9 @@
 import UIKit
 
 final class ProfileViewController: UIViewController {
-    private var profileService = ProfileService.shared
+    private let profileService = ProfileService.shared
+    private var profileImageService = ProfileImageService.shared
+    private var profileImageObserver: NSObjectProtocol?
     
     private var profileImageView: UIImageView = {
         let image = UIImage(named: "UserPic")
@@ -52,6 +54,16 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        profileImageObserver = NotificationCenter.default.addObserver(
+            forName: ProfileImageService.DidChangedNotification,
+            object: nil,
+            queue: .main) {
+                [weak self] _ in
+                guard let self = self else { return }
+                self.updateAvatar()
+            }
+        updateAvatar()
+        
         updateProfileDetails(profile: profileService.profile)
         addSubviews()
         applyConstrains()
@@ -71,6 +83,14 @@ final class ProfileViewController: UIViewController {
         nameLabel.text = profile.name
         userTagLabel.text = profile.loginName
         userDescriptionLabel.text = profile.bio
+    }
+    
+    private func updateAvatar() {
+        guard
+            let profileImageURL = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageURL)
+        else { return }
+        print(url.absoluteString)
     }
     
     @objc

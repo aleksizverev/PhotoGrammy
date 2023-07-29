@@ -69,9 +69,6 @@ extension SplashScreenViewController: AuthViewControllerDelegate {
                 switch result {
                 case .success(let token):
                     self.fetchProfile(token: token)
-//                    self.profileImageService.fetchProfileImageURL(
-//                        username: self.profileService.getProfileUsername(),
-//                        token: token) { _ in }
                 case .failure:
                     UIBlockingProgressHUD.dismiss()
                     break
@@ -81,11 +78,13 @@ extension SplashScreenViewController: AuthViewControllerDelegate {
     }
     
     func fetchProfile(token: String) {
-        print("fetching profile...")
         profileService.fetchProfile(token) { result in
             switch(result) {
-            case .success:
+            case .success(let profile):
                 UIBlockingProgressHUD.dismiss()
+                self.profileImageService.fetchProfileImageURL(
+                    username: profile.username,
+                    token: token) { _ in }
                 self.switchToTabBarController()
             case .failure:
                 UIBlockingProgressHUD.dismiss()

@@ -25,18 +25,19 @@ extension URLSession {
                let response = response,
                let statusCode = (response as? HTTPURLResponse)?.statusCode {
                 if 200 ..< 300 ~= statusCode {
-//                    guard let self = self else { return }
                     JSONDecoder().decode(data: data, completion: fulfillCompletion)
                 } else {
                     fulfillCompletion(.failure(NetworkError.httpStatusCode(statusCode)))
+                    print("STATUS CODE: \(statusCode)")
                 }
             } else if let error = error {
                 fulfillCompletion(.failure(NetworkError.urlRequestError(error)))
+                print("URL REQUEST ERROR")
             } else {
                 fulfillCompletion(.failure(NetworkError.urlSessionError))
+                print("URL SESSION ERROR")
             }
         }
-        
         task.resume()
         return task
     }

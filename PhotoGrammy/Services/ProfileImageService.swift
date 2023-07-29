@@ -13,7 +13,7 @@ final class ProfileImageService {
         token: String,
         _ completion: @escaping (Result<String, Error>) -> Void) {
             
-            print("trying to fetch image ...")
+            print("FETCHING PROGILE AVATAR...")
             assert(Thread.isMainThread)
             task?.cancel()
             
@@ -26,24 +26,26 @@ final class ProfileImageService {
                 switch result {
                 case .success(let userResult):
                     let avatarURL = userResult.profileImage.small
+                    completion(.success(avatarURL))
                     self?.avatarURL = avatarURL // how to unwrap self correctly here?
                     self?.task = nil
-                    completion(.success(avatarURL))
                     NotificationCenter.default.post(
                         name: ProfileImageService.DidChangedNotification,
                         object: self,
                         userInfo: ["URL": avatarURL])
                 case .failure(let error):
                     completion(.failure(error))
-                    print("error fetching avatar")
+                    print("ERROR FETCHING AVATAR!")
                 }
             }
-            self.task = nil
+            self.task = task
+            task.resume()
         }
 }
 
 extension ProfileImageService {
     private func userImageRequest(username: String) -> URLRequest {
+        print("USERNAME: \(username.uppercased())")
         return URLRequest.makeHTTPRequest(
             path:"/users/\(username)",
             httpMethod: "GET",

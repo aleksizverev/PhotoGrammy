@@ -12,8 +12,6 @@ final class ProfileImageService {
         username: String,
         token: String,
         _ completion: @escaping (Result<String, Error>) -> Void) {
-            
-            print("FETCHING PROGILE AVATAR...")
             assert(Thread.isMainThread)
             task?.cancel()
             
@@ -35,7 +33,6 @@ final class ProfileImageService {
                         userInfo: ["URL": avatarURL])
                 case .failure(let error):
                     completion(.failure(error))
-                    print("ERROR FETCHING AVATAR!")
                 }
             }
             self.task = task
@@ -45,7 +42,6 @@ final class ProfileImageService {
 
 extension ProfileImageService {
     private func userImageRequest(username: String) -> URLRequest {
-        print("USERNAME: \(username.uppercased())")
         return URLRequest.makeHTTPRequest(
             path:"/users/\(username)",
             httpMethod: "GET",

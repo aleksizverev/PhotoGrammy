@@ -10,7 +10,6 @@ final class SplashScreenViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("SplashScreen was loaded")
         
         if let token = OAuth2TokenStorage().token {
             switchToTabBarController()

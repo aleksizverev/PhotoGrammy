@@ -108,12 +108,12 @@
 			path = UserProfile;
 			sourceTree = "<group>";
 		};
-		1764DEF82A5096BA0022DC23 /* SigleImageView */ = {
+		1764DEF82A5096BA0022DC23 /* SingleImage */ = {
 			isa = PBXGroup;
 			children = (
 				1753B1E62A3DEB2500C389F4 /* SingleImageViewController.swift */,
 			);
-			path = SigleImageView;
+			path = SingleImage;
 			sourceTree = "<group>";
 		};
 		179CCFBD2A56FE3D002372CD /* Auth */ = {
@@ -157,7 +157,7 @@
 				173617562A693D1000A3223E /* Services */,
 				17E251002A651552006736B1 /* SplashScreen */,
 				179CCFBD2A56FE3D002372CD /* Auth */,
-				1764DEF82A5096BA0022DC23 /* SigleImageView */,
+				1764DEF82A5096BA0022DC23 /* SingleImage */,
 				1753B1E32A35D6E700C389F4 /* UserProfile */,
 				173B78E72A2CE3F3005C83C9 /* ImagesList */,
 				17BDC8F72A278C6700B1FAC8 /* AppDelegate.swift */,

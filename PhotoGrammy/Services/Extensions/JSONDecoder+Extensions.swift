@@ -15,7 +15,6 @@ extension JSONDecoder {
                 completion(.success(object))
             } catch {
                 completion(.failure(error))
-                print("DECODER ERROR")
             }
         }
 }

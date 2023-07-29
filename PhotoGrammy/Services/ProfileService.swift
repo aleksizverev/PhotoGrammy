@@ -10,9 +10,6 @@ final class ProfileService {
     func fetchProfile(
         _ token: String,
         completion: @escaping (Result<Profile, Error>) -> Void) {
-            
-            print("FETCHING PROFILE...")
-            
             assert(Thread.isMainThread)
             task?.cancel()
             

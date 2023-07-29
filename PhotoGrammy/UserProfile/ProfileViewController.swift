@@ -2,6 +2,7 @@ import UIKit
 
 final class ProfileViewController: UIViewController {
     private let profileService = ProfileService.shared
+    private let profileImageService = ProfileImageService.shared
     private var profileImageServiceObserver: NSObjectProtocol?
     
     private var profileImageView: UIImageView = {
@@ -93,10 +94,11 @@ final class ProfileViewController: UIViewController {
     
     private func updateAvatar(){
         guard
-            let profileImageURL = ProfileImageService.shared.avatarURL,
+            let profileImageURL = profileImageService.avatarURL,
             let avatarURL = URL(string: profileImageURL)
         else { return }
         // Update avatar using Kingfisher
+        print(avatarURL)
     }
     
     private func addSubviews() {

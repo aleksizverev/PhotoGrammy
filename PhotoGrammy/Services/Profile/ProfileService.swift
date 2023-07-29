@@ -36,8 +36,9 @@ final class ProfileService {
     
     func getProfileUsername() -> String {
         guard let profileUsername = profile?.username else {
-            return "" //TODO: change this
+            return "None" //TODO: change this
         }
+//        print(profileUsername)
         return profileUsername
     }
 }

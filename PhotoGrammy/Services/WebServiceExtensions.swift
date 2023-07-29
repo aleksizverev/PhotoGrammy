@@ -1,17 +1,14 @@
 import Foundation
 
 extension JSONDecoder {
-    func decode<T: Decodable>(
+    func decodeGenericType<T: Decodable>(
         data: Data,
         completion: @escaping (Result<T, Error>) -> Void) {
             
             let decoder = JSONDecoder()
             
             do {
-                let object = try decoder.decode(
-                    T.self,
-                    from: data
-                )
+                let object = try decoder.decode(T.self, from: data)
                 completion(.success(object))
             } catch {
                 completion(.failure(error))
@@ -54,7 +51,7 @@ extension URLSession {
                let statusCode = (response as? HTTPURLResponse)?.statusCode {
                 if 200 ..< 300 ~= statusCode {
                     guard let self = self else { return }
-                    let decodedData =  JSONDecoder().decode(data: data, completion: fulfillCompletion)
+                    let decodedData =  JSONDecoder().decodeGenericType(data: data, completion: fulfillCompletion)
                 } else {
                     fulfillCompletion(.failure(NetworkError.httpStatusCode(statusCode)))
                 }

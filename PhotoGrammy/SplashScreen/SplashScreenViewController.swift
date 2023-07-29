@@ -92,8 +92,7 @@ extension SplashScreenViewController: AuthViewControllerDelegate {
             switch result {
             case .success:
                 UIBlockingProgressHUD.dismiss()
-                profileImageService.fetchProfileImageURL(
-                    username: profileService.getProfileUsername()){ _ in }
+                profileImageService.fetchProfileImageURL(username: profileService.getProfileUsername(), token: token){ _ in }
                 self.switchToTabBarController()
             case .failure:
                 UIBlockingProgressHUD.dismiss()

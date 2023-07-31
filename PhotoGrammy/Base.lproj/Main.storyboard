@@ -12,7 +12,7 @@
         <!--Auth-->
         <scene sceneID="WyH-7y-t0v">
             <objects>
-                <viewController id="2cs-Ls-bDq" userLabel="Auth" customClass="AuthViewController" customModule="PhotoGrammy" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AuthViewController" id="2cs-Ls-bDq" userLabel="Auth" customClass="AuthViewController" customModule="PhotoGrammy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TFp-DK-1c4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -143,7 +143,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="QlJ-oG-YaW">
             <objects>
-                <tabBarController storyboardIdentifier="TabBarViewController" id="Ha2-Fb-Xgg" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ha2-Fb-Xgg" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="azT-P3-biE">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

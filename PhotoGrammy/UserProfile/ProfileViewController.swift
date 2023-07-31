@@ -1,4 +1,5 @@
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
     private let profileService = ProfileService.shared
@@ -10,6 +11,7 @@ final class ProfileViewController: UIViewController {
         let imageView = UIImageView()
         imageView.image = image
         imageView.tintColor = .gray
+        imageView.backgroundColor
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -90,7 +92,14 @@ final class ProfileViewController: UIViewController {
             let profileImageURL = ProfileImageService.shared.avatarURL,
             let url = URL(string: profileImageURL)
         else { return }
-        print(url.absoluteString)
+        
+        let cache = ImageCache.default
+        cache.clearDiskCache()
+        let processor = RoundCornerImageProcessor(cornerRadius: 61)
+        profileImageView.kf.setImage(
+            with: url,
+            placeholder: UIImage(named: "placeholder.jpeg"),
+            options: [.processor(processor)])
     }
     
     @objc

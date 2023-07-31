@@ -3,16 +3,15 @@ import ProgressHUD
 
 final class SplashScreenViewController: UIViewController {
     private let ShowAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
-    
     private let oauthService = OAuth2Service.shared
     private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if let token = OAuth2TokenStorage().token {
-            switchToTabBarController()
             fetchProfile(token: token)
         } else {
             performSegue(withIdentifier: ShowAuthenticationScreenSegueIdentifier, sender: nil)
@@ -38,6 +37,16 @@ final class SplashScreenViewController: UIViewController {
         // Установим в `rootViewController` полученный контроллер
         window.rootViewController = tabBarController
     }
+    
+    private func presentAuthViewController() {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let authVC = storyboard.instantiateViewController(identifier: "AuthViewController")
+            
+            authVC.modalPresentationStyle = .fullScreen
+            authVC.modalTransitionStyle = .crossDissolve
+            
+            present(authVC, animated: true, completion: nil)
+        }
 }
 
 //MARK: - AuthViewSeguePreparation
@@ -70,7 +79,11 @@ extension SplashScreenViewController: AuthViewControllerDelegate {
                     self.fetchProfile(token: token)
                 case .failure:
                     UIBlockingProgressHUD.dismiss()
-                    break
+                    self.showAlert(on: self,
+                              alertModel: AlertModel(
+                                title: "Something went wrong",
+                                message: "Unable to login",
+                                buttonText: "Ok"))
                 }
             }
         }
@@ -87,7 +100,32 @@ extension SplashScreenViewController: AuthViewControllerDelegate {
                 self.switchToTabBarController()
             case .failure:
                 UIBlockingProgressHUD.dismiss()
+                self.showAlert(on: self,
+                          alertModel: AlertModel(
+                            title: "Something went wrong",
+                            message: "Unable to login",
+                            buttonText: "Ok"))
             }
         }
+    }
+}
+
+// MARK: - AlertsPresentation
+extension SplashScreenViewController {
+    private func showAlert(on controller: UIViewController, alertModel: AlertModel) {
+        let alert = UIAlertController(
+            title: alertModel.title,
+            message: alertModel.message,
+            preferredStyle: .alert)
+        
+        let action = UIAlertAction(
+            title: alertModel.buttonText,
+            style: .default) { _ in
+                // доделать
+                // self.presentAuthViewController()
+            }
+        
+        alert.addAction(action)
+        controller.present(alert, animated: true)
     }
 }

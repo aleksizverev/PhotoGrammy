@@ -23,7 +23,7 @@ final class ProfileImageService {
                 
                 switch result {
                 case .success(let userResult):
-                    let avatarURL = userResult.profileImage.small
+                    let avatarURL = userResult.profileImage.medium
                     completion(.success(avatarURL))
                     self?.avatarURL = avatarURL // how to unwrap self correctly here?
                     self?.task = nil

@@ -36,6 +36,7 @@
 		17E251052A66B440006736B1 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 17E251042A66B440006736B1 /* ProgressHUD */; };
 		17E251072A66B6BD006736B1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E251062A66B6BD006736B1 /* Constants.swift */; };
 		17EAD7DC2A7A406F00A3AC09 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 17EAD7DB2A7A406F00A3AC09 /* SwiftKeychainWrapper */; };
+		17EAD7E22A7A4F1600A3AC09 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EAD7E12A7A4F1600A3AC09 /* TabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 		17E250FE2A5FFFA3006736B1 /* OAuth2TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2TokenStorage.swift; sourceTree = "<group>"; };
 		17E251012A651597006736B1 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
 		17E251062A66B6BD006736B1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		17EAD7E12A7A4F1600A3AC09 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +168,7 @@
 				1764DEF82A5096BA0022DC23 /* SingleImage */,
 				1753B1E32A35D6E700C389F4 /* UserProfile */,
 				173B78E72A2CE3F3005C83C9 /* ImagesList */,
+				17EAD7E02A7A4EC900A3AC09 /* TabBar */,
 				17BDC8F72A278C6700B1FAC8 /* AppDelegate.swift */,
 				17BDC8F92A278C6700B1FAC8 /* SceneDelegate.swift */,
 				17BDC8FD2A278C6700B1FAC8 /* Main.storyboard */,
@@ -195,6 +198,14 @@
 				17E251012A651597006736B1 /* SplashScreenViewController.swift */,
 			);
 			path = SplashScreen;
+			sourceTree = "<group>";
+		};
+		17EAD7E02A7A4EC900A3AC09 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				17EAD7E12A7A4F1600A3AC09 /* TabBarController.swift */,
+			);
+			path = TabBar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,6 +298,7 @@
 				17E250FB2A5FFD56006736B1 /* OAuthTokenResponseBody.swift in Sources */,
 				17BDC8F82A278C6700B1FAC8 /* AppDelegate.swift in Sources */,
 				17E251072A66B6BD006736B1 /* Constants.swift in Sources */,
+				17EAD7E22A7A4F1600A3AC09 /* TabBarController.swift in Sources */,
 				179CCFBF2A56FE59002372CD /* AuthViewController.swift in Sources */,
 				1753B1E72A3DEB2500C389F4 /* SingleImageViewController.swift in Sources */,
 				17A1D8412A75106B007164A5 /* UserResult.swift in Sources */,

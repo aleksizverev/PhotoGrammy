@@ -56,6 +56,8 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = UIColor(named: "YP Black")
+        
         profileImageObserver = NotificationCenter.default.addObserver(
             forName: ProfileImageService.DidChangedNotification,
             object: nil,
@@ -65,7 +67,6 @@ final class ProfileViewController: UIViewController {
                 self.updateAvatar()
             }
         updateAvatar()
-        
         updateProfileDetails(profile: profileService.profile)
         addSubviews()
         applyConstrains()

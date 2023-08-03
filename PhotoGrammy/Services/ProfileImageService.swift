@@ -25,7 +25,7 @@ final class ProfileImageService {
                 case .success(let userResult):
                     let avatarURL = userResult.profileImage.medium
                     completion(.success(avatarURL))
-                    self?.avatarURL = avatarURL // how to unwrap self correctly here?
+                    self?.avatarURL = avatarURL
                     self?.task = nil
                     NotificationCenter.default.post(
                         name: ProfileImageService.DidChangedNotification,

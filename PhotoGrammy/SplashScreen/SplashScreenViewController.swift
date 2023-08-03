@@ -24,14 +24,12 @@ final class SplashScreenViewController: UIViewController {
         super.viewDidAppear(animated)
         
         view.backgroundColor = UIColor(named: "YP Black")
-        
         addSubviews()
         applyConstraints()
         
         if let token = OAuth2TokenStorage().token {
             fetchProfile(token: token)
         } else {
-//            performSegue(withIdentifier: ShowAuthenticationScreenSegueIdentifier, sender: nil)
             presentAuthViewController()
         }
     }
@@ -74,23 +72,6 @@ final class SplashScreenViewController: UIViewController {
         present(authVC, animated: true, completion: nil)
     }
 }
-
-//MARK: - AuthViewSeguePreparation
-//extension SplashScreenViewController {
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == ShowAuthenticationScreenSegueIdentifier {
-//            guard
-//                let navigationController = segue.destination as? UINavigationController,
-//                let viewController = navigationController.viewControllers[0] as? AuthViewController
-//            else {
-//                fatalError("Failed to prepare for \(ShowAuthenticationScreenSegueIdentifier)")
-//            }
-//            viewController.delegate = self
-//        } else {
-//            super.prepare(for: segue, sender: sender)
-//        }
-//    }
-//}
 
 //MARK: - AuthViewControllerDelegate
 extension SplashScreenViewController: AuthViewControllerDelegate {
@@ -147,8 +128,7 @@ extension SplashScreenViewController {
         let action = UIAlertAction(
             title: alertModel.buttonText,
             style: .default) { _ in
-                // доделать
-                // self.presentAuthViewController()
+                self.presentAuthViewController()
             }
         
         alert.addAction(action)

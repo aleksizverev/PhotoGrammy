@@ -7,14 +7,32 @@ final class SplashScreenViewController: UIViewController {
     private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared
     
+    private var splashScreenLogoImageView: UIImageView = {
+        let image = UIImage(named: "SplashScreenLogo")
+        let imageView = UIImageView()
+        imageView.image = image
+        imageView.tintColor = .gray
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        view.backgroundColor = UIColor(named: "YP Black")
+        
+        addSubviews()
+        applyConstraints()
+        
         if let token = OAuth2TokenStorage().token {
             fetchProfile(token: token)
         } else {
-            performSegue(withIdentifier: ShowAuthenticationScreenSegueIdentifier, sender: nil)
+//            performSegue(withIdentifier: ShowAuthenticationScreenSegueIdentifier, sender: nil)
+            presentAuthViewController()
         }
     }
     
@@ -23,8 +41,15 @@ final class SplashScreenViewController: UIViewController {
         setNeedsStatusBarAppearanceUpdate()
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
+    private func addSubviews() {
+        view.addSubview(splashScreenLogoImageView)
+    }
+    
+    private func applyConstraints() {
+        NSLayoutConstraint.activate([
+            splashScreenLogoImageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            splashScreenLogoImageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
+        ])
     }
     
     private func switchToTabBarController() {
@@ -39,32 +64,33 @@ final class SplashScreenViewController: UIViewController {
     }
     
     private func presentAuthViewController() {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let authVC = storyboard.instantiateViewController(identifier: "AuthViewController")
-            
-            authVC.modalPresentationStyle = .fullScreen
-            authVC.modalTransitionStyle = .crossDissolve
-            
-            present(authVC, animated: true, completion: nil)
-        }
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let VC = storyboard.instantiateViewController(withIdentifier: "AuthViewController")
+        guard let authVC = VC as? AuthViewController else { return }
+        
+        authVC.delegate = self
+        authVC.modalPresentationStyle = .fullScreen
+        
+        present(authVC, animated: true, completion: nil)
+    }
 }
 
 //MARK: - AuthViewSeguePreparation
-extension SplashScreenViewController {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == ShowAuthenticationScreenSegueIdentifier {
-            guard
-                let navigationController = segue.destination as? UINavigationController,
-                let viewController = navigationController.viewControllers[0] as? AuthViewController
-            else {
-                fatalError("Failed to prepare for \(ShowAuthenticationScreenSegueIdentifier)")
-            }
-            viewController.delegate = self
-        } else {
-            super.prepare(for: segue, sender: sender)
-        }
-    }
-}
+//extension SplashScreenViewController {
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == ShowAuthenticationScreenSegueIdentifier {
+//            guard
+//                let navigationController = segue.destination as? UINavigationController,
+//                let viewController = navigationController.viewControllers[0] as? AuthViewController
+//            else {
+//                fatalError("Failed to prepare for \(ShowAuthenticationScreenSegueIdentifier)")
+//            }
+//            viewController.delegate = self
+//        } else {
+//            super.prepare(for: segue, sender: sender)
+//        }
+//    }
+//}
 
 //MARK: - AuthViewControllerDelegate
 extension SplashScreenViewController: AuthViewControllerDelegate {

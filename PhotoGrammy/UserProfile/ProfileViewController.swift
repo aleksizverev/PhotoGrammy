@@ -11,7 +11,6 @@ final class ProfileViewController: UIViewController {
         let imageView = UIImageView()
         imageView.image = image
         imageView.tintColor = .gray
-        imageView.backgroundColor
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()

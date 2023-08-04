@@ -23,6 +23,8 @@ final class SplashScreenViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        guard UIBlockingProgressHUD.isShowing == false else { return }
+            
         view.backgroundColor = UIColor(named: "YP Black")
         addSubviews()
         applyConstraints()
@@ -63,8 +65,8 @@ final class SplashScreenViewController: UIViewController {
     
     private func presentAuthViewController() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let VC = storyboard.instantiateViewController(withIdentifier: "AuthViewController")
-        guard let authVC = VC as? AuthViewController else { return }
+        let vc = storyboard.instantiateViewController(withIdentifier: "AuthViewController")
+        guard let authVC = vc as? AuthViewController else { return }
         
         authVC.delegate = self
         authVC.modalPresentationStyle = .fullScreen

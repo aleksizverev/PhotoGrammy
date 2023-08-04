@@ -1,6 +1,11 @@
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
+    private let profileService = ProfileService.shared
+    private var profileImageService = ProfileImageService.shared
+    private var profileImageObserver: NSObjectProtocol?
+    
     private var profileImageView: UIImageView = {
         let image = UIImage(named: "UserPic")
         let imageView = UIImageView()
@@ -40,7 +45,7 @@ final class ProfileViewController: UIViewController {
     private let exitButton: UIButton = {
         let exitButton = UIButton.systemButton(
             with: UIImage(systemName: "ipad.and.arrow.forward")!,
-            target: ProfileViewController.self,
+            target: self,
             action: #selector(Self.didTapExitButton))
         exitButton.tintColor = .red
         exitButton.translatesAutoresizingMaskIntoConstraints = false
@@ -50,6 +55,18 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = UIColor(named: "YP Black")
+        
+        profileImageObserver = NotificationCenter.default.addObserver(
+            forName: ProfileImageService.DidChangedNotification,
+            object: nil,
+            queue: .main) {
+                [weak self] _ in
+                guard let self = self else { return }
+                self.updateAvatar()
+            }
+        updateAvatar()
+        updateProfileDetails(profile: profileService.profile)
         addSubviews()
         applyConstrains()
     }
@@ -61,6 +78,28 @@ final class ProfileViewController: UIViewController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
+    }
+    
+    private func updateProfileDetails(profile: Profile?) {
+        guard let profile = profile else { return }
+        nameLabel.text = profile.name
+        userTagLabel.text = profile.loginName
+        userDescriptionLabel.text = profile.bio
+    }
+    
+    private func updateAvatar() {
+        guard
+            let profileImageURL = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageURL)
+        else { return }
+        
+        let cache = ImageCache.default
+        cache.clearDiskCache()
+        let processor = RoundCornerImageProcessor(cornerRadius: 61)
+        profileImageView.kf.setImage(
+            with: url,
+            placeholder: UIImage(named: "placeholder.jpeg"),
+            options: [.processor(processor)])
     }
     
     @objc

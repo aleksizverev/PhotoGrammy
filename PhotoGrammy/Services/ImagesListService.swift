@@ -4,30 +4,42 @@ final class ImageListService {
     static let shared = ImageListService()
     static let DidChangeNotification = Notification.Name(rawValue: "ImagesListServiceDidChange")
     
-    private (set) var photos: [Photo] = []
-    private var lastLoadedPage: Int?
+    private(set) var photos: [Photo] = []
+    private(set) var lastLoadedPage: Int?
     private var task: URLSessionTask?
     private let session = URLSession.shared
     
     func fetchPhotosNextPage() {
-        let pageToLoad = lastLoadedPage == nil ? "1" : String(lastLoadedPage! + 1)
+        print("TRYING TO FETCH..")
+        let pageToLoad = lastLoadedPage == nil ? 1 : lastLoadedPage! + 1
         
         task?.cancel()
         var request = imageListRequest()
-        request.setValue(pageToLoad, forHTTPHeaderField: "page")
+        request.setValue(String(pageToLoad), forHTTPHeaderField: "page")
+        request.setValue("Bearer \(OAuth2TokenStorage().token ?? "")", forHTTPHeaderField: "Authorization")
         
         let task = session.objectTask(for: request) {
-            (result: Result<PhotoResults, Error>) in
+            (result: Result<[PhotoResult], Error>) in
             
             switch result {
             case .success(let photosResults):
-                photosResults.results.forEach { photoResult in
-                    self.photos.append(Photo(photoResult: photoResult))
+                print("SUCCESS")
+                DispatchQueue.main.async {
+                    photosResults.forEach { photoResult in
+                        self.photos.append(Photo(photoResult: photoResult))
+                    }
+                    self.lastLoadedPage = pageToLoad
+                    
+                    NotificationCenter.default.post(
+                        name: ImageListService.DidChangeNotification,
+                        object: self)
                 }
             case .failure:
-                print("Error loading photos")
+                print("ERROR LOADING PHOTOS")
             }
         }
+        self.task = task
+        task.resume()
     }
 }
 

@@ -1,16 +1,14 @@
-struct PhotoResults: Codable {
-    let results: [PhotoResult]
-}
-
-struct PhotoResult: Codable {
+struct PhotoResult: Decodable {
     let id: String
-    let created_at: String
-    let description: String
-    let urls: ImageURLS
-    let liked_by_user: Bool
+    let width: Int
+    let height: Int
+    let created_at: String?
+    let description: String?
+    let urls: UrlsResult
+    let liked_by_user: Bool?
 }
 
-struct ImageURLS: Codable {
+struct UrlsResult: Codable {
     let thumb: String
     let full: String
 }

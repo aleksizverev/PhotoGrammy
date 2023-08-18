@@ -13,8 +13,7 @@ struct Photo {
         id = photoResult.id
         size = CGSize(width: photoResult.width, height: photoResult.height)
         
-        let dateFormatter = 	DateFormatter()
-        dateFormatter.dateFormat = "d MMMM yyyy"
+        let dateFormatter = ISO8601DateFormatter()
         createdAt = 	dateFormatter.date(from: photoResult.created_at ?? "")
         
         welcomeDescription = photoResult.description

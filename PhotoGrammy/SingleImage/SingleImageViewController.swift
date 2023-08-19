@@ -1,11 +1,10 @@
 import UIKit
 
 final class SingleImageViewController: UIViewController {
-    private var image: UIImage! {
+    var imageURL: URL! {
         didSet {
             guard isViewLoaded else { return }
-            imageView.image = image
-            rescaleAndCenterImageInScrollView(image: image)
+            setCurrentImage()
         }
     }
     
@@ -15,10 +14,9 @@ final class SingleImageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageView.image = image
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
-        rescaleAndCenterImageInScrollView(image: image)
+        setCurrentImage()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,8 +28,19 @@ final class SingleImageViewController: UIViewController {
         .lightContent
     }
     
-    func setCurrentImage(to image: UIImage!){
-        self.image = image
+    func setCurrentImage(){
+        UIBlockingProgressHUD.show()
+        imageView.kf.setImage(with: imageURL) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let result):
+                self.rescaleAndCenterImageInScrollView(image: result.image)
+            case .failure:
+                assertionFailure("Unable to load image")
+                return
+            }
+            UIBlockingProgressHUD.dismiss()
+        }
     }
     
     @IBAction private func didTapBackButton() {
@@ -39,7 +48,9 @@ final class SingleImageViewController: UIViewController {
     }
     
     @IBAction private func didTapShareButton(_ sender: UIButton) {
-        let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        let activityViewController = UIActivityViewController(
+            activityItems: [imageView.image as Any],
+            applicationActivities: nil)
         present(activityViewController, animated: true, completion: nil)
     }
     
@@ -48,7 +59,7 @@ final class SingleImageViewController: UIViewController {
         let maxZoomScale = scrollView.maximumZoomScale
         view.layoutIfNeeded()
         let visibleRectSize = scrollView.bounds.size
-        let imageSize = image.size
+        let imageSize = imageView.frame.size
         let hScale = visibleRectSize.width / imageSize.width
         let vScale = visibleRectSize.height / imageSize.height
         let scale = min(maxZoomScale, max(minZoomScale, max(hScale, vScale)))

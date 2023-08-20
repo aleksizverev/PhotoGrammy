@@ -3,7 +3,7 @@
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -172,6 +172,9 @@
                                                     </constraints>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal" image="Active"/>
+                                                    <connections>
+                                                        <action selector="likeButtonClicked" destination="xdO-cR-3WT" eventType="touchUpInside" id="sKS-C1-bpM"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -214,7 +217,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="133.84615384615384" y="-427.25118483412319"/>
+            <point key="canvasLocation" x="133.59999999999999" y="-427.83251231527095"/>
         </scene>
         <!--Single Image View Controller-->
         <scene sceneID="qUf-IX-iuY">

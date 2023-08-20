@@ -85,6 +85,7 @@ extension ImagesListViewController: UITableViewDataSource {
         guard let imageListCell = cell as? ImagesListCell else {
             return UITableViewCell()
         }
+        imageListCell.delegate = self
         configCell(for: imageListCell, with: indexPath)
         
         return imageListCell
@@ -130,7 +131,29 @@ extension ImagesListViewController {
             cell.dateLabel.text = ""
         }
         
-        let likeButtonImage = indexPath.row % 2 == 0 ? UIImage(named: "LikeButtonOn") : UIImage(named: "LikeButtonOff")
-        cell.likeButton.setImage(likeButtonImage, for: .normal)
+        cell.setIsLiked(isLiked: self.photos[indexPath.row].isLiked)
+    }
+}
+
+// MARK: - ImagesListCellDelegate
+extension ImagesListViewController: ImagesListCellDelegate {
+    func imageListCellDidTapLike(_ cell: ImagesListCell) {
+    
+        guard let indexPath = imageListTableView.indexPath(for: cell) else { return }
+        let photo = photos[indexPath.row]
+        
+        UIBlockingProgressHUD.show()
+        imagesListService.changeLike(photoId: photo.id, isLike: !photo.isLiked) { result in
+            switch result {
+            case .success:
+                self.photos = self.imagesListService.photos
+                cell.setIsLiked(isLiked: self.photos[indexPath.row].isLiked)
+                UIBlockingProgressHUD.dismiss()
+                
+            case .failure:
+                UIBlockingProgressHUD.dismiss()
+                // TODO: Показать ошибку с использованием UIAlertController
+            }
+        }
     }
 }

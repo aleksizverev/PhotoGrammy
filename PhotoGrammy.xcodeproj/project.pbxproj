@@ -13,6 +13,8 @@
 		174E89292A82A99800EE2498 /* PhotoGrammyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174E89282A82A99800EE2498 /* PhotoGrammyTests.swift */; };
 		1753B1E52A35D95C00C389F4 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1753B1E42A35D95C00C389F4 /* ProfileViewController.swift */; };
 		1753B1E72A3DEB2500C389F4 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1753B1E62A3DEB2500C389F4 /* SingleImageViewController.swift */; };
+		1768749E2A90D7D30084D727 /* LikeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1768749D2A90D7D30084D727 /* LikeResult.swift */; };
+		176874A02A90F7A50084D727 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1768749F2A90F7A50084D727 /* Array+Extensions.swift */; };
 		1791951C2A77A34B00EF9EEC /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1791951B2A77A34B00EF9EEC /* Alert.swift */; };
 		1791951F2A7819A300EF9EEC /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 1791951E2A7819A300EF9EEC /* Kingfisher */; };
 		179CCFBF2A56FE59002372CD /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179CCFBE2A56FE59002372CD /* AuthViewController.swift */; };
@@ -61,6 +63,8 @@
 		174E89282A82A99800EE2498 /* PhotoGrammyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGrammyTests.swift; sourceTree = "<group>"; };
 		1753B1E42A35D95C00C389F4 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		1753B1E62A3DEB2500C389F4 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
+		1768749D2A90D7D30084D727 /* LikeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeResult.swift; sourceTree = "<group>"; };
+		1768749F2A90F7A50084D727 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		1791951B2A77A34B00EF9EEC /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		179CCFBE2A56FE59002372CD /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		179CCFC02A5706F0002372CD /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
@@ -174,6 +178,7 @@
 				17A1D8322A74FA09007164A5 /* URLSession+Extensions.swift */,
 				17A1D8342A74FA23007164A5 /* URLRequest+Extensions.swift */,
 				17A1D8362A74FA5C007164A5 /* JSONDecoder+Extensions.swift */,
+				1768749F2A90F7A50084D727 /* Array+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -227,6 +232,7 @@
 				1791951B2A77A34B00EF9EEC /* Alert.swift */,
 				17EAD7E52A7D1A3800A3AC09 /* Photo.swift */,
 				174E89202A80F3A000EE2498 /* PhotoResult.swift */,
+				1768749D2A90D7D30084D727 /* LikeResult.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -368,6 +374,7 @@
 			files = (
 				17EAD7E42A7CE9E500A3AC09 /* ImagesListService.swift in Sources */,
 				17BDC8FC2A278C6700B1FAC8 /* ImagesListViewController.swift in Sources */,
+				176874A02A90F7A50084D727 /* Array+Extensions.swift in Sources */,
 				17E251022A651597006736B1 /* SplashScreenViewController.swift in Sources */,
 				17E250FD2A5FFE06006736B1 /* OAuth2Service.swift in Sources */,
 				173B78E52A2CE35C005C83C9 /* ImagesListCell.swift in Sources */,
@@ -393,6 +400,7 @@
 				17A1D8372A74FA5C007164A5 /* JSONDecoder+Extensions.swift in Sources */,
 				17A1D83D2A750011007164A5 /* ProfileResult.swift in Sources */,
 				173617582A693D2F00A3223E /* UIBlockingProgressHUD.swift in Sources */,
+				1768749E2A90D7D30084D727 /* LikeResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

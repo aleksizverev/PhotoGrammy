@@ -3,6 +3,7 @@ import ProgressHUD
 
 final class SplashScreenViewController: UIViewController {
     private let ShowAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
+    private let oauth2TokenStorage = OAuth2TokenStorage()
     private let oauthService = OAuth2Service.shared
     private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared
@@ -29,7 +30,7 @@ final class SplashScreenViewController: UIViewController {
         addSubviews()
         applyConstraints()
         
-        if let token = OAuth2TokenStorage().token {
+        if let token = oauth2TokenStorage.token {
             fetchProfile(token: token)
         } else {
             presentAuthViewController()
@@ -54,7 +55,9 @@ final class SplashScreenViewController: UIViewController {
     
     private func switchToTabBarController() {
         // Получаем экземпляр `Window` приложения
-        guard let window = UIApplication.shared.windows.first else {fatalError("Invalid Configuration")}
+        guard let window = UIApplication.shared.windows.first else {
+            fatalError("Invalid Configuration")
+        }
         
         // Cоздаём экземпляр нужного контроллера из Storyboard с помощью ранее заданного идентификатора.
         let tabBarController = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(withIdentifier: "TabBarViewController")

@@ -36,8 +36,11 @@ final class SingleImageViewController: UIViewController {
             case .success(let result):
                 self.rescaleAndCenterImageInScrollView(image: result.image)
             case .failure:
+                showError(on: self, alertModel: AlertModel(
+                    title: "Something went wrong. Try again?",
+                    message: "",
+                    buttonText: ""))
                 assertionFailure("Unable to load image")
-                return
             }
             UIBlockingProgressHUD.dismiss()
         }
@@ -76,5 +79,29 @@ final class SingleImageViewController: UIViewController {
 extension SingleImageViewController: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         imageView
+    }
+}
+
+extension SingleImageViewController {
+    private func showError(on controller: UIViewController, alertModel: AlertModel) {
+        let alert = UIAlertController(
+            title: alertModel.title,
+            message: alertModel.message,
+            preferredStyle: .alert)
+        
+        let actionAgain = UIAlertAction(
+            title: "Yes",
+            style: .default) { _ in
+                self.setCurrentImage()
+            }
+        let actionCancel = UIAlertAction(
+            title: "No",
+            style: .default) { _ in
+                self.setCurrentImage()
+            }
+        
+        alert.addAction(actionAgain)
+        alert.addAction(actionCancel)
+        controller.present(alert, animated: true)
     }
 }

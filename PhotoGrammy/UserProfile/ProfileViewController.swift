@@ -2,6 +2,7 @@ import UIKit
 import Kingfisher
 
 final class ProfileViewController: UIViewController {
+    private let oauth2TokenStorage = OAuth2TokenStorage()
     private let profileService = ProfileService.shared
     private var profileImageService = ProfileImageService.shared
     private var profileImageObserver: NSObjectProtocol?
@@ -104,9 +105,19 @@ final class ProfileViewController: UIViewController {
     
     @objc
     private func didTapExitButton() {
-        nameLabel.removeFromSuperview()
-        userTagLabel.removeFromSuperview()
-        userDescriptionLabel.removeFromSuperview()
+        showAlert(on: self, alertModel: AlertModel(
+            title: "Goodbye!",
+            message: "Are you sure you want to exit?",
+            buttonText: ""))
+    }
+    
+    private func exitFromProfile() {
+        WebViewViewController.clean()
+        oauth2TokenStorage.cleanStorage()
+        guard let window = UIApplication.shared.windows.first else {
+            fatalError("Inavalid configuration")
+        }
+        window.rootViewController = SplashScreenViewController()
     }
     
     private func addSubviews() {
@@ -138,5 +149,30 @@ final class ProfileViewController: UIViewController {
             exitButton.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor),
             exitButton.widthAnchor.constraint(equalToConstant: 44),
             exitButton.heightAnchor.constraint(equalToConstant: 44) ])
+    }
+}
+
+extension ProfileViewController {
+    private func showAlert(on controller: UIViewController, alertModel: AlertModel) {
+        let alert = UIAlertController(
+            title: alertModel.title,
+            message: alertModel.message,
+            preferredStyle: .alert)
+        
+        let actionYes = UIAlertAction(
+            title: "Yes",
+            style: .default) { _ in
+                self.exitFromProfile()
+            }
+        
+        let actionNo = UIAlertAction(
+            title: "No",
+            style: .cancel) { _ in
+                alert.dismiss(animated: true)
+            }
+        
+        alert.addAction(actionYes)
+        alert.addAction(actionNo)
+        controller.present(alert, animated: true)
     }
 }

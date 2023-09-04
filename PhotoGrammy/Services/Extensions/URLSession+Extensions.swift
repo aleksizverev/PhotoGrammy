@@ -28,14 +28,11 @@ extension URLSession {
                     JSONDecoder().decode(data: data, completion: fulfillCompletion)
                 } else {
                     fulfillCompletion(.failure(NetworkError.httpStatusCode(statusCode)))
-                    print(statusCode)
                 }
             } else if let error = error {
                 fulfillCompletion(.failure(NetworkError.urlRequestError(error)))
-                print(error)
             } else {
                 fulfillCompletion(.failure(NetworkError.urlSessionError))
-                print(error)
             }
         }
         task.resume()

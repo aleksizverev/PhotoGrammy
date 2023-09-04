@@ -231,16 +231,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="414" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="qNI-rM-AlY">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
                                         <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                                     </imageView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="qNI-rM-AlY" firstAttribute="height" secondItem="Dch-6G-lSB" secondAttribute="height" id="B6C-CP-f8r"/>
                                     <constraint firstAttribute="bottom" secondItem="qNI-rM-AlY" secondAttribute="bottom" id="Lra-aO-uj9"/>
                                     <constraint firstItem="qNI-rM-AlY" firstAttribute="top" secondItem="ds2-NB-LII" secondAttribute="top" id="RPq-ob-blm"/>
                                     <constraint firstAttribute="trailing" secondItem="qNI-rM-AlY" secondAttribute="trailing" id="lcK-0I-Xr4"/>
-                                    <constraint firstItem="qNI-rM-AlY" firstAttribute="width" secondItem="Dch-6G-lSB" secondAttribute="width" id="u4A-UN-qXG"/>
                                     <constraint firstItem="qNI-rM-AlY" firstAttribute="leading" secondItem="ds2-NB-LII" secondAttribute="leading" id="xaH-iB-ZZK"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="g0k-zO-YQ7"/>

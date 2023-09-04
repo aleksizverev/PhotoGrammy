@@ -2,39 +2,37 @@ import Foundation
 
 final class ImageListService {
     static let shared = ImageListService()
-    static let DidChangeNotification = Notification.Name(rawValue: "ImagesListServiceDidChange")
     
     private(set) var photos: [Photo] = []
     private(set) var lastLoadedPage: Int?
     private var task: URLSessionTask?
     private let session = URLSession.shared
     
+    
     func fetchPhotosNextPage() {
         let pageToLoad = lastLoadedPage == nil ? 1 : lastLoadedPage! + 1
-        print("TRYING TO FETCH PAGE NUMBER \(pageToLoad)")
 
         task?.cancel()
         var request = imageListRequest(page: String(pageToLoad))
         request.setValue("Bearer \(OAuth2TokenStorage().token ?? "")",
                          forHTTPHeaderField: "Authorization")
         
-        let task = session.objectTask(for: request) {
+        let task = session.objectTask(for: request) { [weak self]
             (result: Result<[PhotoResult], Error>) in
+            guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
                 case .success(let photosResults):
-                    print("SUCCESS")
-                    
                     let photos = photosResults.map { Photo(photoResult: $0) }
                     self.photos.append(contentsOf: photos)
                     self.lastLoadedPage = pageToLoad
                     
                     NotificationCenter.default.post(
-                        name: ImageListService.DidChangeNotification,
+                        name: .didChangeNotification,
                         object: self,
                         userInfo: ["photos" : self.photos])
-                case .failure:
-                    print("ERROR LOADING PHOTOS")
+                case .failure(let error):
+                    assertionFailure("Error loading photos \(error)")
                 }
                 self.task = nil
             }
@@ -58,7 +56,6 @@ final class ImageListService {
         let task = session.objectTask(for: request) { (result: Result<LikeResult, Error>) in
             switch result {
             case .success(let likeResult):
-//                let isLiked = likeResult.photo.liked_by_user
                 if let index = self.photos.firstIndex(where: {$0.id == photoId}) {
                     let photo = self.photos[index]
                     let newPhoto = Photo(

@@ -2,7 +2,7 @@ import UIKit
 import ProgressHUD
 
 final class SplashScreenViewController: UIViewController {
-    private let ShowAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
+    private let showAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
     private let oauth2TokenStorage = OAuth2TokenStorage()
     private let oauthService = OAuth2Service.shared
     private let profileService = ProfileService.shared

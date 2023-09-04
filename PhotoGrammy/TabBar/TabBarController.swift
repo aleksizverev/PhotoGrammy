@@ -10,7 +10,7 @@ final class TabBarController: UITabBarController {
         
         let profileViewController = ProfileViewController()
         profileViewController.tabBarItem = UITabBarItem(
-            title: "Profile",
+            title: "",
             image: UIImage(named: "TabProfileActive"),
             selectedImage: nil)
         

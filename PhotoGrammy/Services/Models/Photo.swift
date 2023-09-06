@@ -3,13 +3,13 @@ import Foundation
 struct Photo {
     let id: String
     let size: CGSize
-    let createdAt: Date?
+    let createdAt: String?
     let welcomeDescription: String?
     let thumbImageURL: String
     let largeImageURL: String   
     let isLiked: Bool
     
-    init(id: String, size: CGSize, createdAt: Date?, welcomeDescription: String?, thumbImageURL: String, largeImageURL: String, isLiked: Bool) {
+    init(id: String, size: CGSize, createdAt: String?, welcomeDescription: String?, thumbImageURL: String, largeImageURL: String, isLiked: Bool) {
         self.id = id
         self.size = size
         self.createdAt = createdAt
@@ -22,10 +22,7 @@ struct Photo {
     init(photoResult: PhotoResult) {
         id = photoResult.id
         size = CGSize(width: photoResult.width, height: photoResult.height)
-        
-        let dateFormatter = ISO8601DateFormatter()
-        createdAt = 	dateFormatter.date(from: photoResult.created_at ?? "")
-
+        createdAt = photoResult.created_at
         welcomeDescription = photoResult.description
         thumbImageURL = photoResult.urls.thumb
         largeImageURL = photoResult.urls.full

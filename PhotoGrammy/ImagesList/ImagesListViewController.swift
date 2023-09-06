@@ -2,26 +2,28 @@ import UIKit
 
 final class ImagesListViewController: UIViewController {
     private let imagesListService = ImageListService.shared
-    private var imagesListServiceObserver: NSObjectProtocol?
     private let showSingleImageSegueIdentifier = "ShowSingleImage"
-    private var photos: [Photo] = []
     
+    private var imagesListServiceObserver: NSObjectProtocol?
+    private var photos: [Photo] = []
+    private lazy var isoFormatter: ISO8601DateFormatter = .init()
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
         formatter.timeStyle = .none
+        formatter.locale = Locale(identifier: "en_GB")
         return formatter
     }()
     
     @IBOutlet private var imageListTableView: UITableView!
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setNeedsStatusBarAppearanceUpdate()
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
     }
     
     override func viewDidLoad() {
@@ -122,9 +124,11 @@ extension ImagesListViewController {
         let imageURL = photos[indexPath.row].thumbImageURL
         guard let url = URL(string: imageURL) else { return }
         
-        let dateCreated = photos[indexPath.row].createdAt == nil
-        ? ""
-        : dateFormatter.string(from: photos[indexPath.row].createdAt!)
+        var dateCreated = ""
+        if let createdAt = photos[indexPath.row].createdAt,
+           let date = isoFormatter.date(from: createdAt) {
+            dateCreated = dateFormatter.string(from: date)
+        }
         
         let model = ImagesListCellModel(
             imageURL: url,

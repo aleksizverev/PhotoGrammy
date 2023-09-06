@@ -8,7 +8,6 @@ final class ImageListService {
     private var task: URLSessionTask?
     private let session = URLSession.shared
     
-    
     func fetchPhotosNextPage() {
         let pageToLoad = lastLoadedPage == nil ? 1 : lastLoadedPage! + 1
 
@@ -53,9 +52,10 @@ final class ImageListService {
         request.setValue("Bearer \(OAuth2TokenStorage().token ?? "")",
                          forHTTPHeaderField: "Authorization")
         
-        let task = session.objectTask(for: request) { (result: Result<LikeResult, Error>) in
+        let task = session.objectTask(for: request) {[weak self] (result: Result<LikeResult, Error>) in
+            guard let self = self else { return }
             switch result {
-            case .success(let likeResult):
+            case .success(_):
                 if let index = self.photos.firstIndex(where: {$0.id == photoId}) {
                     let photo = self.photos[index]
                     let newPhoto = Photo(

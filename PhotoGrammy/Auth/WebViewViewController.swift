@@ -7,17 +7,19 @@ protocol WebViewViewControllerDelegate: AnyObject {
 }
 
 final class WebViewViewController: UIViewController {
-    private static let UnsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
-    weak var delegate: WebViewViewControllerDelegate?
+    private static let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
     private var estimatedProgressObservation: NSKeyValueObservation?
+    
+    weak var delegate: WebViewViewControllerDelegate?
     
     @IBOutlet private weak var webView: WKWebView!
     @IBOutlet private weak var progressView: UIProgressView!
     
     override func viewDidLoad() {
-        webView.navigationDelegate = self
+        super.viewDidLoad()
         
-        progressView.setProgress(0, animated: false)
+        webView.navigationDelegate = self
+
         estimatedProgressObservation = webView.observe(
             \.estimatedProgress,
              options: []) { [weak self] _,_  in
@@ -25,7 +27,7 @@ final class WebViewViewController: UIViewController {
                  self.updateProgress()
              }
         
-        var urlComponents = URLComponents(string: WebViewViewController.UnsplashAuthorizeURLString)!
+        var urlComponents = URLComponents(string: WebViewViewController.unsplashAuthorizeURLString)!
         
         urlComponents.queryItems = [
             URLQueryItem(name: "client_id", value: AccessKey),
@@ -64,7 +66,6 @@ final class WebViewViewController: UIViewController {
 
 //MARK: - WKNavigationDelegate
 extension WebViewViewController: WKNavigationDelegate {
-    
     private func code(from navigationAction: WKNavigationAction) -> String? {
         if
             let url = navigationAction.request.url,

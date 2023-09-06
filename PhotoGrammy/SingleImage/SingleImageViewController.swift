@@ -12,6 +12,10 @@ final class SingleImageViewController: UIViewController {
     @IBOutlet private weak var backButton: UIButton!
     @IBOutlet private weak var imageView: UIImageView!
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.minimumZoomScale = 0.1
@@ -22,10 +26,6 @@ final class SingleImageViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setNeedsStatusBarAppearanceUpdate()
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
     }
     
     func setCurrentImage(){
@@ -40,21 +40,9 @@ final class SingleImageViewController: UIViewController {
                     title: "Something went wrong. Try again?",
                     message: "",
                     buttonText: ""))
-                assertionFailure("Unable to load image")
             }
             UIBlockingProgressHUD.dismiss()
         }
-    }
-    
-    @IBAction private func didTapBackButton() {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction private func didTapShareButton(_ sender: UIButton) {
-        let activityViewController = UIActivityViewController(
-            activityItems: [imageView.image as Any],
-            applicationActivities: nil)
-        present(activityViewController, animated: true, completion: nil)
     }
     
     private func rescaleAndCenterImageInScrollView(image: UIImage) {
@@ -72,6 +60,17 @@ final class SingleImageViewController: UIViewController {
         let x = (newContentSize.width - visibleRectSize.width) / 2
         let y = (newContentSize.height - visibleRectSize.height) / 2
         scrollView.setContentOffset(CGPoint(x: x, y: y), animated: false)
+    }
+    
+    @IBAction private func didTapBackButton() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction private func didTapShareButton(_ sender: UIButton) {
+        let activityViewController = UIActivityViewController(
+            activityItems: [imageView.image as Any],
+            applicationActivities: nil)
+        present(activityViewController, animated: true, completion: nil)
     }
 }
 

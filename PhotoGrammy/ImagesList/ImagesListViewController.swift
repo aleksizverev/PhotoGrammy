@@ -26,7 +26,7 @@ final class ImagesListViewController: UIViewController {
         setNeedsStatusBarAppearanceUpdate()
     }
     
-    override func viewDidLoad() {
+    override func viewDidLoad() { 
         super.viewDidLoad()
         UIBlockingProgressHUD.show()
         imageListTableView.dataSource = self

@@ -7,7 +7,6 @@ protocol WebViewViewControllerDelegate: AnyObject {
 }
 
 final class WebViewViewController: UIViewController {
-    private static let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
     private var estimatedProgressObservation: NSKeyValueObservation?
     
     weak var delegate: WebViewViewControllerDelegate?
@@ -27,7 +26,7 @@ final class WebViewViewController: UIViewController {
                  self.updateProgress()
              }
         
-        var urlComponents = URLComponents(string: WebViewViewController.unsplashAuthorizeURLString)!
+        var urlComponents = URLComponents(string: UnsplashAuthorizeURLString)!
         
         urlComponents.queryItems = [
             URLQueryItem(name: "client_id", value: AccessKey),

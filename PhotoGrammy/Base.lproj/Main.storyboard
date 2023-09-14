@@ -3,7 +3,7 @@
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -26,16 +26,20 @@
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E1M-V6-6ai">
                                 <rect key="frame" x="16" y="640" width="343" height="48"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="oFS-in-AaD"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Log In">
-                                    <backgroundConfiguration key="background" cornerRadius="16"/>
-                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="17"/>
-                                    <color key="baseForegroundColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="baseBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </buttonConfiguration>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Log In">
+                                    <color key="titleColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="16"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <segue destination="0If-6W-g5S" kind="presentation" identifier="ShowWebView" modalPresentationStyle="overFullScreen" id="koo-rt-Tsd"/>
                                 </connections>
@@ -172,6 +176,9 @@
                                                     </constraints>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal" image="Active"/>
+                                                    <connections>
+                                                        <action selector="likeButtonClicked" destination="xdO-cR-3WT" eventType="touchUpInside" id="sKS-C1-bpM"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -214,7 +221,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="133.84615384615384" y="-427.25118483412319"/>
+            <point key="canvasLocation" x="133.59999999999999" y="-427.83251231527095"/>
         </scene>
         <!--Single Image View Controller-->
         <scene sceneID="qUf-IX-iuY">
@@ -228,16 +235,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="414" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="qNI-rM-AlY">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
                                         <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                                     </imageView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="qNI-rM-AlY" firstAttribute="height" secondItem="Dch-6G-lSB" secondAttribute="height" id="B6C-CP-f8r"/>
                                     <constraint firstAttribute="bottom" secondItem="qNI-rM-AlY" secondAttribute="bottom" id="Lra-aO-uj9"/>
                                     <constraint firstItem="qNI-rM-AlY" firstAttribute="top" secondItem="ds2-NB-LII" secondAttribute="top" id="RPq-ob-blm"/>
                                     <constraint firstAttribute="trailing" secondItem="qNI-rM-AlY" secondAttribute="trailing" id="lcK-0I-Xr4"/>
-                                    <constraint firstItem="qNI-rM-AlY" firstAttribute="width" secondItem="Dch-6G-lSB" secondAttribute="width" id="u4A-UN-qXG"/>
                                     <constraint firstItem="qNI-rM-AlY" firstAttribute="leading" secondItem="ds2-NB-LII" secondAttribute="leading" id="xaH-iB-ZZK"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="g0k-zO-YQ7"/>

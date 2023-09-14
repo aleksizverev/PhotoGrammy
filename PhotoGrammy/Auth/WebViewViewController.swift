@@ -7,16 +7,18 @@ protocol WebViewViewControllerDelegate: AnyObject {
 }
 
 final class WebViewViewController: UIViewController {
-    private static let UnsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
-    weak var delegate: WebViewViewControllerDelegate?
     private var estimatedProgressObservation: NSKeyValueObservation?
+    
+    weak var delegate: WebViewViewControllerDelegate?
     
     @IBOutlet private weak var webView: WKWebView!
     @IBOutlet private weak var progressView: UIProgressView!
     
     override func viewDidLoad() {
-        webView.navigationDelegate = self
+        super.viewDidLoad()
         
+        webView.navigationDelegate = self
+
         estimatedProgressObservation = webView.observe(
             \.estimatedProgress,
              options: []) { [weak self] _,_  in
@@ -24,7 +26,7 @@ final class WebViewViewController: UIViewController {
                  self.updateProgress()
              }
         
-        var urlComponents = URLComponents(string: WebViewViewController.UnsplashAuthorizeURLString)!
+        var urlComponents = URLComponents(string: UnsplashAuthorizeURLString)!
         
         urlComponents.queryItems = [
             URLQueryItem(name: "client_id", value: AccessKey),
@@ -39,9 +41,23 @@ final class WebViewViewController: UIViewController {
         
     }
     
-    private func updateProgress(){
-        progressView.setProgress(Float(webView.estimatedProgress), animated: true)
-        progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
+    private func updateProgress() {
+        if !progressView.isHidden {
+            progressView.setProgress(Float(webView.estimatedProgress), animated: false)
+            progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
+        }
+    }
+    
+    static func clean() {
+        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+            records.forEach { record in
+                WKWebsiteDataStore.default().removeData(
+                    ofTypes: record.dataTypes,
+                    for: [record],
+                    completionHandler: {})
+            }
+        }
     }
     
     @IBAction private func didTapBackButton(_ sender: Any) {
@@ -51,7 +67,6 @@ final class WebViewViewController: UIViewController {
 
 //MARK: - WKNavigationDelegate
 extension WebViewViewController: WKNavigationDelegate {
-    
     private func code(from navigationAction: WKNavigationAction) -> String? {
         if
             let url = navigationAction.request.url,

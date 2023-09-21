@@ -31,7 +31,7 @@ final class ImageListService {
                         object: self,
                         userInfo: ["photos" : self.photos])
                 case .failure(let error):
-                    assertionFailure("Error loading photos \(error)")
+                    print(error.localizedDescription)
                 }
                 self.task = nil
             }

@@ -19,6 +19,7 @@
 		176874A02A90F7A50084D727 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1768749F2A90F7A50084D727 /* Array+Extensions.swift */; };
 		1791951C2A77A34B00EF9EEC /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1791951B2A77A34B00EF9EEC /* Alert.swift */; };
 		1791951F2A7819A300EF9EEC /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 1791951E2A7819A300EF9EEC /* Kingfisher */; };
+		1797B9872ABC4CC100B1A97A /* WebViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1797B9862ABC4CC100B1A97A /* WebViewPresenter.swift */; };
 		179CCFBF2A56FE59002372CD /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179CCFBE2A56FE59002372CD /* AuthViewController.swift */; };
 		179CCFC12A5706F0002372CD /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179CCFC02A5706F0002372CD /* WebViewViewController.swift */; };
 		17A1D8332A74FA09007164A5 /* URLSession+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A1D8322A74FA09007164A5 /* URLSession+Extensions.swift */; };
@@ -70,6 +71,7 @@
 		1768749D2A90D7D30084D727 /* LikeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeResult.swift; sourceTree = "<group>"; };
 		1768749F2A90F7A50084D727 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		1791951B2A77A34B00EF9EEC /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		1797B9862ABC4CC100B1A97A /* WebViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPresenter.swift; sourceTree = "<group>"; };
 		179CCFBE2A56FE59002372CD /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		179CCFC02A5706F0002372CD /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
 		17A1D8322A74FA09007164A5 /* URLSession+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Extensions.swift"; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 			children = (
 				179CCFBE2A56FE59002372CD /* AuthViewController.swift */,
 				179CCFC02A5706F0002372CD /* WebViewViewController.swift */,
+				1797B9862ABC4CC100B1A97A /* WebViewPresenter.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -380,6 +383,7 @@
 			files = (
 				174192D32AA484B500869C79 /* Notification+Extensions.swift in Sources */,
 				17EAD7E42A7CE9E500A3AC09 /* ImagesListService.swift in Sources */,
+				1797B9872ABC4CC100B1A97A /* WebViewPresenter.swift in Sources */,
 				17BDC8FC2A278C6700B1FAC8 /* ImagesListViewController.swift in Sources */,
 				176874A02A90F7A50084D727 /* Array+Extensions.swift in Sources */,
 				17E251022A651597006736B1 /* SplashScreenViewController.swift in Sources */,

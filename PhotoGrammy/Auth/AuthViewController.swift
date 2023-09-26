@@ -29,7 +29,8 @@ extension AuthViewController {
             else {
                 fatalError("Failed to prepare for \(ShowWebViewSegueIdentifier)")
             }
-            let webViewPresenter = WebViewPresenter()
+            let authHelper = AuthHelper()
+            let webViewPresenter = WebViewPresenter(authHelper: authHelper)
             webViewPresenter.view = webViewViewController;
             webViewViewController.presenter = webViewPresenter;
             webViewViewController.delegate = self

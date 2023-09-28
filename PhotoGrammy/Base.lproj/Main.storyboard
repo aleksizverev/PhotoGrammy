@@ -27,6 +27,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E1M-V6-6ai">
                                 <rect key="frame" x="16" y="640" width="343" height="48"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Authenticate"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="oFS-in-AaD"/>
                                 </constraints>
@@ -68,7 +69,7 @@
         <!--Web View View Controller-->
         <scene sceneID="BTE-Q9-043">
             <objects>
-                <viewController id="0If-6W-g5S" customClass="WebViewViewController" customModule="PhotoGrammy" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WebViewViewController" id="0If-6W-g5S" customClass="WebViewViewController" customModule="PhotoGrammy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oEL-m2-ahP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -80,6 +81,9 @@
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="UnsplashWebView"/>
+                                </userDefinedRuntimeAttributes>
                             </wkWebView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gtx-m4-hsy" userLabel="navBackButton">
                                 <rect key="frame" x="9" y="9" width="24" height="24"/>
@@ -96,6 +100,7 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="zXN-gq-biy"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <accessibility key="accessibilityConfiguration" identifier="UnsplashWebView"/>
                         <constraints>
                             <constraint firstItem="Nde-7X-mDM" firstAttribute="leading" secondItem="oEL-m2-ahP" secondAttribute="leading" id="2QU-1R-HYi"/>
                             <constraint firstAttribute="trailing" secondItem="4EZ-B8-xd1" secondAttribute="trailing" id="B8E-fs-PtZ"/>
@@ -170,6 +175,7 @@
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c7f-R8-VFC" userLabel="Like Button">
                                                     <rect key="frame" x="315" y="4" width="44" height="44"/>
+                                                    <accessibility key="accessibilityConfiguration" identifier="likeButton"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="44" id="6Jl-1o-z18"/>
                                                         <constraint firstAttribute="height" constant="44" id="U1w-1k-9D2"/>
@@ -253,6 +259,7 @@
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tnb-fy-hRc">
                                 <rect key="frame" x="8" y="8" width="48" height="48"/>
+                                <accessibility key="accessibilityConfiguration" identifier="backButton"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="48" id="H5h-b7-37F"/>
                                     <constraint firstAttribute="height" constant="48" id="nTW-jM-lAu"/>

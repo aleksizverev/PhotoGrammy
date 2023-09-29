@@ -1,10 +1,10 @@
 import UIKit
 
 public protocol WebViewPresenterProtocol: AnyObject {
+    var view: WebViewViewControllerProtocol? { get set }
     func viewDidLoad()
     func didUpdateProgressValue(_ newValue: Double)
     func code(from url: URL) -> String?
-    var view: WebViewViewControllerProtocol? { get set }
 }
 
 final class WebViewPresenter: WebViewPresenterProtocol {

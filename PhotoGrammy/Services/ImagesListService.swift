@@ -82,7 +82,7 @@ final class ImageListService {
 extension ImageListService {
     private func imageListRequest(page: String) -> URLRequest {
         return URLRequest.makeHTTPRequest(
-            path:"/photos?page=\(page)&&per_page=5",
+            path:"/photos?page=\(page)&&per_page=10",
             httpMethod: "GET",
             baseURL: DefaultBaseURL)
     }

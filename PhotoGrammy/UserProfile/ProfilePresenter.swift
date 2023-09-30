@@ -4,13 +4,17 @@ public protocol ProfilePresenterProtocol: AnyObject {
     var view: ProfileViewControllerProtocol? { get set }
     func viewDidLoad()
     func updateAvatar()
+    func updateProfileDetails()
 }
 
 final class ProfilePresenter: ProfilePresenterProtocol {
     private let profileService = ProfileService.shared
-    private var profileImageService = ProfileImageService.shared
+    weak var view: ProfileViewControllerProtocol?
+    var profileSetUpHelper: ProfileSetUpHelperProtocol
     
-    var view: ProfileViewControllerProtocol?
+    init(profileSetUpHelper: ProfileSetUpHelperProtocol) {
+        self.profileSetUpHelper = profileSetUpHelper
+    }
     
     func viewDidLoad() {
         updateProfileDetails()
@@ -19,13 +23,12 @@ final class ProfilePresenter: ProfilePresenterProtocol {
     
     func updateAvatar() {
         guard
-            let profileImageURL = profileImageService.avatarURL,
-            let url = URL(string: profileImageURL)
+            let url = profileSetUpHelper.getUserProfileAvatarURL()
         else { return }
         view?.setProfileAvatar(with: url)
     }
     
-    private func updateProfileDetails() {
+    func updateProfileDetails() {
         view?.setProfileDetails(profile: profileService.profile)
     }
 }

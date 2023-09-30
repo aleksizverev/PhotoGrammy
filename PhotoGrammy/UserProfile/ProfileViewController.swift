@@ -12,10 +12,9 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
     var presenter: ProfilePresenterProtocol?
     
     private let oauth2TokenStorage = OAuth2TokenStorage()
-//    private var profileImageService = ProfileImageService.shared
     private var profileImageObserver: NSObjectProtocol?
     
-    private var profileImageView: UIImageView = {
+    private(set) var profileImageView: UIImageView = {
         let image = UIImage(named: "UserPic")
         let imageView = UIImageView()
         imageView.image = image
@@ -24,7 +23,7 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
         return imageView
     }()
     
-    private var nameLabel: UILabel = {
+    private(set) var nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Ekaterina Novikova"
         label.textColor = .white
@@ -33,7 +32,7 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
         return label
     }()
     
-    private var userTagLabel: UILabel = {
+    private(set) var userTagLabel: UILabel = {
         let label = UILabel()
         label.text = "@ekaterina_nov"
         label.textColor = UIColor(red: 0.68, green: 0.69, blue: 0.71, alpha: 1.0)
@@ -42,7 +41,7 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
         return label
     }()
     
-    private var userDescriptionLabel: UILabel = {
+    private(set) var userDescriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "Hello, world!"
         label.textColor = .white
@@ -74,7 +73,6 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
                 presenter?.updateAvatar()
             }
         
-        configure(ProfilePresenter())
         presenter?.viewDidLoad()
         
         addSubviews()

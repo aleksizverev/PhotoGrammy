@@ -1,5 +1,5 @@
-import PhotoGrammy
-import Foundation
+@testable import PhotoGrammy
+import UIKit
 
 class ProfileServiceStub {
     static let shared = ProfileServiceStub()
@@ -12,6 +12,7 @@ final class ProfilePresenterSpy: ProfilePresenterProtocol {
     var view: PhotoGrammy.ProfileViewControllerProtocol?
     var profileService = ProfileServiceStub.shared
     var viewDidLoadCalled: Bool = false
+    var didTapExitButtonCalled: Bool = false
     
     func viewDidLoad() {
         viewDidLoadCalled = true
@@ -23,5 +24,13 @@ final class ProfilePresenterSpy: ProfilePresenterProtocol {
     
     func updateProfileDetails() {
         view?.setProfileDetails(profile: profileService.profile)
+    }
+    
+    func didTapExitButton() {
+        didTapExitButtonCalled = true
+    }
+    
+    func createAlert(with alertModel: PhotoGrammy.AlertModel) -> UIAlertController {
+        return UIAlertController()
     }
 }

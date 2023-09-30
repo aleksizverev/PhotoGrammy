@@ -30,7 +30,21 @@ final class ProfileViewTests: XCTestCase {
         XCTAssertEqual(sut.userDescriptionLabel.text, presenter.profileService.profile?.bio)
     }
     
-    func testPresenterCallsSetProfileAvatar(){
+    func testViewControllerCallsDidTapExitButton() {
+        //given
+        let sut = ProfileViewController()
+        let presenter = ProfilePresenterSpy()
+        sut.configure(presenter)
+        
+        //when
+        _ = sut.view
+        sut.didTapExitButton()
+        
+        //then
+        XCTAssertTrue(presenter.didTapExitButtonCalled)
+    }
+    
+    func testPresenterCallsSetProfileAvatar() {
         //given
         let profileHelperStub = ProfileSetUpHelperStub()
         let sut = ProfilePresenter(profileSetUpHelper: profileHelperStub)
@@ -42,6 +56,39 @@ final class ProfileViewTests: XCTestCase {
         
         //then
         XCTAssertTrue(viewController.setProfileAvatarCalled)
+    }
+    
+    func testPresenterCallsShowAlert() {
+        //given
+        let profileHelperStub = ProfileSetUpHelperStub()
+        let sut = ProfilePresenter(profileSetUpHelper: profileHelperStub)
+        let viewController = ProfileViewControllerSpy()
+        viewController.configure(sut)
+        
+        //when
+        sut.didTapExitButton()
+        
+        //then
+        XCTAssertTrue(viewController.showAlertCalled)
+    }
+    
+    func testPresenterCreatesAlert() {
+        //given
+        let profileHelperStub = ProfileSetUpHelperStub()
+        let sut = ProfilePresenter(profileSetUpHelper: profileHelperStub)
+        let viewController = ProfileViewControllerSpy()
+        viewController.configure(sut)
+        
+        //when
+        let alert = sut.createAlert(with: AlertModel(
+            title: "Goodbye!",
+            message: "Are you sure you want to exit?",
+            buttonText: "")
+        )
+        
+        //then
+        XCTAssertEqual(alert.title, "Goodbye!")
+        XCTAssertEqual(alert.message, "Are you sure you want to exit?")
     }
 }
 

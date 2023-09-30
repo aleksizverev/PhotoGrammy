@@ -6,12 +6,11 @@ public protocol ProfileViewControllerProtocol: AnyObject {
     func configure(_ presenter: ProfilePresenterProtocol)
     func setProfileDetails(profile: Profile?)
     func setProfileAvatar(with url: URL)
+    func showAlert(alert: UIAlertController)
 }
 
 final class ProfileViewController: UIViewController & ProfileViewControllerProtocol {
     var presenter: ProfilePresenterProtocol?
-    
-    private let oauth2TokenStorage = OAuth2TokenStorage()
     private var profileImageObserver: NSObjectProtocol?
     
     private(set) var profileImageView: UIImageView = {
@@ -111,20 +110,8 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
     }
     
     @objc
-    private func didTapExitButton() {
-        showAlert(on: self, alertModel: AlertModel(
-            title: "Goodbye!",
-            message: "Are you sure you want to exit?",
-            buttonText: ""))
-    }
-    
-    private func exitFromProfile() {
-        WebViewViewController.clean()
-        oauth2TokenStorage.cleanStorage()
-        guard let window = UIApplication.shared.windows.first else {
-            fatalError("Inavalid configuration")
-        }
-        window.rootViewController = SplashScreenViewController()
+    func didTapExitButton() {
+        presenter?.didTapExitButton()
     }
     
     private func addSubviews() {
@@ -160,26 +147,7 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
 }
 
 extension ProfileViewController {
-    private func showAlert(on controller: UIViewController, alertModel: AlertModel) {
-        let alert = UIAlertController(
-            title: alertModel.title,
-            message: alertModel.message,
-            preferredStyle: .alert)
-        
-        let actionYes = UIAlertAction(
-            title: "Yes",
-            style: .default) { _ in
-                self.exitFromProfile()
-            }
-        
-        let actionNo = UIAlertAction(
-            title: "No",
-            style: .cancel) { _ in
-                alert.dismiss(animated: true)
-            }
-        
-        alert.addAction(actionYes)
-        alert.addAction(actionNo)
-        controller.present(alert, animated: true)
+    func showAlert(alert: UIAlertController) {
+        self.present(alert, animated: true)
     }
 }

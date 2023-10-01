@@ -42,21 +42,24 @@ final class PhotoGrammyUITests: XCTestCase {
         let tablesQuery = app.tables
         
         let cell = tablesQuery.children(matching: .cell).element(boundBy: 0)
-        cell.swipeUp()
+        app.swipeUp()
+        sleep(4)
+        app.swipeDown()
         
-        sleep(2)
+        sleep(4)
         let cellToLike = tablesQuery.children(matching: .cell).element(boundBy: 1)
-        cellToLike.buttons["likeButton"].tap()
+        cellToLike.buttons.firstMatch.tap()
     
-        sleep(2)
-        cellToLike.buttons["likeButton"].tap()
+        sleep(4)
+        cellToLike.buttons.firstMatch.tap()
 
-        sleep(2)
+        sleep(4)
         cellToLike.tap()
         
-        sleep(2)
+        sleep(4)
         let image = app.scrollViews.images.element(boundBy: 0)
-        sleep(5)
+        
+        sleep(4)
         image.pinch(withScale: 3, velocity: 1)
         image.pinch(withScale: 0.5, velocity: -1)
         

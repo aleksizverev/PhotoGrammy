@@ -9,9 +9,11 @@ final class ImageListService {
     private let session = URLSession.shared
     
     func fetchPhotosNextPage() {
-        let pageToLoad = lastLoadedPage == nil ? 1 : lastLoadedPage! + 1
-
+        assert(Thread.isMainThread)
         task?.cancel()
+        
+        let pageToLoad = lastLoadedPage == nil ? 1 : lastLoadedPage! + 1
+        
         var request = imageListRequest(page: String(pageToLoad))
         request.setValue("Bearer \(OAuth2TokenStorage().token ?? "")",
                          forHTTPHeaderField: "Authorization")
@@ -30,10 +32,10 @@ final class ImageListService {
                         name: .didChangeNotification,
                         object: self,
                         userInfo: ["photos" : self.photos])
+                    self.task = nil
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
-                self.task = nil
             }
         }
         self.task = task

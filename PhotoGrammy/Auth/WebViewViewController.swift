@@ -35,16 +35,7 @@ final class WebViewViewController: UIViewController & WebViewViewControllerProto
                  presenter?.didUpdateProgressValue(webView.estimatedProgress)
              }
     }
-    
-    /*
-    private func updateProgress() {
-        if !progressView.isHidden {
-            progressView.setProgress(Float(webView.estimatedProgress), animated: false)
-            progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
-        }
-    }
-     */
-    
+
     static func clean() {
         HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
         WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in

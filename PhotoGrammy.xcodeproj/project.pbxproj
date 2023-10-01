@@ -29,6 +29,9 @@
 		1797B98B2AC3489F00B1A97A /* AuthHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1797B98A2AC3489F00B1A97A /* AuthHelper.swift */; };
 		1797B9A02AC34E7B00B1A97A /* WebViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1797B99F2AC34E7B00B1A97A /* WebViewTests.swift */; };
 		1797B9A82AC350A100B1A97A /* WebViewPresenterSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1797B9A72AC350A100B1A97A /* WebViewPresenterSpy.swift */; };
+		179A00902AC96B71001107F8 /* ImagesListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179A008F2AC96B71001107F8 /* ImagesListPresenter.swift */; };
+		179A00942AC96E78001107F8 /* ImagesListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179A00932AC96E78001107F8 /* ImagesListTests.swift */; };
+		179A00962AC96F36001107F8 /* ImagesListPresenterSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179A00952AC96F36001107F8 /* ImagesListPresenterSpy.swift */; };
 		179CCFBF2A56FE59002372CD /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179CCFBE2A56FE59002372CD /* AuthViewController.swift */; };
 		179CCFC12A5706F0002372CD /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179CCFC02A5706F0002372CD /* WebViewViewController.swift */; };
 		17A1D8332A74FA09007164A5 /* URLSession+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A1D8322A74FA09007164A5 /* URLSession+Extensions.swift */; };
@@ -100,6 +103,9 @@
 		1797B99D2AC34E7A00B1A97A /* Photo GrammyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Photo GrammyTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1797B99F2AC34E7B00B1A97A /* WebViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewTests.swift; sourceTree = "<group>"; };
 		1797B9A72AC350A100B1A97A /* WebViewPresenterSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPresenterSpy.swift; sourceTree = "<group>"; };
+		179A008F2AC96B71001107F8 /* ImagesListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListPresenter.swift; sourceTree = "<group>"; };
+		179A00932AC96E78001107F8 /* ImagesListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListTests.swift; sourceTree = "<group>"; };
+		179A00952AC96F36001107F8 /* ImagesListPresenterSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListPresenterSpy.swift; sourceTree = "<group>"; };
 		179CCFBE2A56FE59002372CD /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		179CCFC02A5706F0002372CD /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
 		17A1D8322A74FA09007164A5 /* URLSession+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Extensions.swift"; sourceTree = "<group>"; };
@@ -187,6 +193,7 @@
 			children = (
 				173B78E42A2CE35C005C83C9 /* ImagesListCell.swift */,
 				17BDC8FB2A278C6700B1FAC8 /* ImagesListViewController.swift */,
+				179A008F2AC96B71001107F8 /* ImagesListPresenter.swift */,
 			);
 			path = ImagesList;
 			sourceTree = "<group>";
@@ -215,6 +222,7 @@
 				1797B9A62AC3508500B1A97A /* Helpers */,
 				1797B99F2AC34E7B00B1A97A /* WebViewTests.swift */,
 				170B63A42AC5FC4C00ACAE26 /* ProfileViewTests.swift */,
+				179A00932AC96E78001107F8 /* ImagesListTests.swift */,
 			);
 			path = "Photo GrammyTests";
 			sourceTree = "<group>";
@@ -227,6 +235,7 @@
 				170B63A82AC6027100ACAE26 /* ProfilePresenterSpy.swift */,
 				175D058A2AC8234F00060427 /* ProfileViewControllerSpy.swift */,
 				17C283352AC82DBB007B1C63 /* ProfileSetUpHelperStub.swift */,
+				179A00952AC96F36001107F8 /* ImagesListPresenterSpy.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -478,8 +487,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				170B63A52AC5FC4C00ACAE26 /* ProfileViewTests.swift in Sources */,
+				179A00942AC96E78001107F8 /* ImagesListTests.swift in Sources */,
 				170B63A92AC6027100ACAE26 /* ProfilePresenterSpy.swift in Sources */,
 				1797B9A02AC34E7B00B1A97A /* WebViewTests.swift in Sources */,
+				179A00962AC96F36001107F8 /* ImagesListPresenterSpy.swift in Sources */,
 				170B638E2AC5476800ACAE26 /* WebViewViewControllerSpy.swift in Sources */,
 				17C283362AC82DBB007B1C63 /* ProfileSetUpHelperStub.swift in Sources */,
 				1797B9A82AC350A100B1A97A /* WebViewPresenterSpy.swift in Sources */,
@@ -525,6 +536,7 @@
 				1797B98B2AC3489F00B1A97A /* AuthHelper.swift in Sources */,
 				17A1D83D2A750011007164A5 /* ProfileResult.swift in Sources */,
 				173617582A693D2F00A3223E /* UIBlockingProgressHUD.swift in Sources */,
+				179A00902AC96B71001107F8 /* ImagesListPresenter.swift in Sources */,
 				1768749E2A90D7D30084D727 /* LikeResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

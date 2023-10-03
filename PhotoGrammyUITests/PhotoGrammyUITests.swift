@@ -1,5 +1,8 @@
 import XCTest
 
+let unsplashLogin = ""
+let unsplashPassword = ""
+
 final class PhotoGrammyUITests: XCTestCase {
     private let app = XCUIApplication()
     
@@ -19,14 +22,14 @@ final class PhotoGrammyUITests: XCTestCase {
         let loginTextField = webView.descendants(matching: .textField).element
         XCTAssertTrue(loginTextField.waitForExistence(timeout: 5))
         loginTextField.tap()
-        loginTextField.typeText("mydevaccounts@tutanota.com")
-        webView.tap()
+        loginTextField.typeText(unsplashLogin)
+        XCUIApplication().toolbars.buttons["Done"].tap()
         
         let passwordTextField = webView.descendants(matching: .secureTextField).element
         XCTAssertTrue(passwordTextField.waitForExistence(timeout: 5))
         passwordTextField.tap()
-        passwordTextField.typeText("HS9oMBIFWuYOXz")
-        webView.tap()
+        passwordTextField.typeText(unsplashPassword)
+        webView.swipeUp()
         
         let loginButton = webView.descendants(matching: .button).element
         loginButton.tap()
@@ -75,7 +78,9 @@ final class PhotoGrammyUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["@spaghetti_banana"].exists)
         
         app.buttons["logout button"].tap()
-        
         app.alerts["Goodbye!"].scrollViews.otherElements.buttons["Yes"].tap()
+        
+        sleep(2)
+        XCTAssertTrue(app.buttons["Authenticate"].exists)
     }
 }

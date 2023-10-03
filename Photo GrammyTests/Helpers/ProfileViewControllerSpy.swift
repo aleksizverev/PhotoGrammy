@@ -1,6 +1,5 @@
 @testable import PhotoGrammy
 import UIKit
-import Kingfisher
 
 final class ProfileViewControllerSpy: ProfileViewControllerProtocol {
     var presenter: ProfilePresenterProtocol?

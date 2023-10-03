@@ -8,7 +8,6 @@ protocol ImagesListPresenterProtocol: AnyObject {
     func didUpdatePhotosList()
     func willUpdatePhotosList(for photoNumber: Int)
     func updatePhotoLikeState(for indexPath: IndexPath)
-    func getCurrentPhotosList() -> [Photo]
     func configCell(for cell: ImagesListCell, with indexPath: IndexPath)
 }
 
@@ -27,6 +26,10 @@ final class ImagesListPresenter: ImagesListPresenterProtocol {
     
     weak var view: ImagesListViewControllerProtocol?
     
+    var currentPhotosList: [Photo] {
+        photos
+    }
+    
     init(view: ImagesListViewControllerProtocol? = nil) {
         self.view = view
     }
@@ -35,10 +38,6 @@ final class ImagesListPresenter: ImagesListPresenterProtocol {
         view?.showProgressHUD()
         view?.setUpTableView()
         fetchPhotosNextPage()
-    }
-    
-    func getCurrentPhotosList() -> [Photo] {
-        return photos
     }
     
     func fetchPhotosNextPage() {

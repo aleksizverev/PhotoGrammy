@@ -1,4 +1,4 @@
-import PhotoGrammy
+@testable import PhotoGrammy
 import Foundation
 
 final class WebViewViewControllerSpy: WebViewViewControllerProtocol {

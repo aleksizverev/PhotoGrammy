@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol ProfileSetUpHelperProtocol {
+protocol ProfileSetUpHelperProtocol {
     func getUserProfileAvatarURL() -> URL?
 }
 

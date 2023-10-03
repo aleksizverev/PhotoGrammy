@@ -38,7 +38,6 @@ final class ImagesListViewController: UIViewController & ImagesListViewControlle
                 presenter?.didUpdatePhotosList()
                 UIBlockingProgressHUD.dismiss()
             }
-        
         presenter?.viewDidLoad()
     }
     
@@ -49,15 +48,16 @@ final class ImagesListViewController: UIViewController & ImagesListViewControlle
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showSingleImageSegueIdentifier {
-            let viewController = segue.destination as! SingleImageViewController
+            guard
+                let viewController = segue.destination as? SingleImageViewController
+            else { return }
+            
             let indexPath = sender as? IndexPath
             guard
                 let indexPath = indexPath,
                 let photo = presenter?.photos[indexPath.row]
-            else {
-                assertionFailure("Error preparing single image segue")
-                return
-            }
+            else { return }
+            
             let url = URL(string: photo.largeImageURL)
             viewController.imageURL = url
         } else {
@@ -77,7 +77,6 @@ final class ImagesListViewController: UIViewController & ImagesListViewControlle
     }
     
     func updateTableViewAnimated(indexPaths: [IndexPath]) {
-        //        presenter?.didUpdatePhotosList()
         imageListTableView.performBatchUpdates {
             imageListTableView.insertRows(at: indexPaths, with: .automatic)
         } completion: { _ in }

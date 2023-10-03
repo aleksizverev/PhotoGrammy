@@ -1,7 +1,7 @@
 @testable import PhotoGrammy
 import UIKit
 
-class ProfileServiceStub {
+final class ProfileServiceStub {
     static let shared = ProfileServiceStub()
     var profile: PhotoGrammy.Profile? = {
         PhotoGrammy.Profile(username: "johndoe", name: "John Doe", loginName: "@johndoe", bio: "Hello, World!")

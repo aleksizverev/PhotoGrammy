@@ -1,6 +1,6 @@
 import UIKit
 
-public protocol ProfilePresenterProtocol: AnyObject {
+protocol ProfilePresenterProtocol: AnyObject {
     var view: ProfileViewControllerProtocol? { get set }
     func viewDidLoad()
     func updateAvatar()
@@ -12,9 +12,9 @@ public protocol ProfilePresenterProtocol: AnyObject {
 final class ProfilePresenter: ProfilePresenterProtocol {
     private let oauth2TokenStorage = OAuth2TokenStorage()
     private let profileService = ProfileService.shared
+    private let profileSetUpHelper: ProfileSetUpHelperProtocol
     
     weak var view: ProfileViewControllerProtocol?
-    var profileSetUpHelper: ProfileSetUpHelperProtocol
     
     init(profileSetUpHelper: ProfileSetUpHelperProtocol) {
         self.profileSetUpHelper = profileSetUpHelper

@@ -5,7 +5,7 @@ protocol AuthViewControllerDelegate: AnyObject {
 }
 
 final class AuthViewController: UIViewController {
-    private let ShowWebViewSegueIdentifier = "ShowWebView"
+    private let showWebViewSegueIdentifier = "ShowWebView"
     weak var delegate: AuthViewControllerDelegate?
     
     @IBOutlet private var logInButton: UIButton!
@@ -23,11 +23,11 @@ final class AuthViewController: UIViewController {
 //MARK: - WebViewSeguePreparation
 extension AuthViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == ShowWebViewSegueIdentifier {
+        if segue.identifier == showWebViewSegueIdentifier {
             guard
                 let webViewViewController = segue.destination as? WebViewViewController
             else {
-                fatalError("Failed to prepare for \(ShowWebViewSegueIdentifier)")
+                return 
             }
             let authHelper = AuthHelper()
             let webViewPresenter = WebViewPresenter(authHelper: authHelper)

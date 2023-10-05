@@ -5,7 +5,10 @@ struct Profile {
     let name: String
     let loginName: String
     let bio: String
-    
+}
+
+//MARK: - ProfileResultInit
+extension Profile {
     init(profileResult: ProfileResult) {
         username =  profileResult.username ?? ""
         name =  "\(profileResult.firstName ?? "") \(profileResult.lastName ?? "")"

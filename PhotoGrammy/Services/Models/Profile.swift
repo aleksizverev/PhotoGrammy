@@ -5,13 +5,6 @@ struct Profile {
     let name: String
     let loginName: String
     let bio: String
-    
-    init(username: String, name: String, loginName: String, bio: String) {
-        self.username = username
-        self.name = name
-        self.loginName = loginName
-        self.bio = bio
-    }
 }
 
 //MARK: - ProfileResultInit

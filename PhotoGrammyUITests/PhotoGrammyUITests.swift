@@ -1,9 +1,11 @@
 import XCTest
 
-let unsplashLogin = ""
-let unsplashPassword = ""
-
 final class PhotoGrammyUITests: XCTestCase {
+    let unsplashLogin = ""
+    let unsplashPassword = ""
+    let userName = ""
+    let loginName = ""
+    
     private let app = XCUIApplication()
     
     override func setUpWithError() throws {
@@ -74,8 +76,8 @@ final class PhotoGrammyUITests: XCTestCase {
         sleep(3)
         app.tabBars.buttons.element(boundBy: 1).tap()
        
-        XCTAssertTrue(app.staticTexts["John Doe"].exists)
-        XCTAssertTrue(app.staticTexts["@spaghetti_banana"].exists)
+        XCTAssertTrue(app.staticTexts[userName].exists)
+        XCTAssertTrue(app.staticTexts[loginName].exists)
         
         app.buttons["logout button"].tap()
         app.alerts["Goodbye!"].scrollViews.otherElements.buttons["Yes"].tap()
